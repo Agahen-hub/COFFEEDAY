@@ -153,7 +153,7 @@
         <a href="https://2gis.kz/pavlodar/search/coffeeday" target="_blank" rel="noopener noreferrer" class="px-4 py-2 rounded-xl bg-stone-100 hover:bg-emerald-50 text-stone-700 hover:text-emerald-600 text-xs font-semibold flex items-center gap-2 transition-colors">
           <i data-lucide="map-pin" class="w-4 h-4"></i> 2GIS Карта
         </a>
-        <a href="https://wa.me/77006852466" target="_blank" rel="noopener noreferrer" class="px-4 py-2 rounded-xl bg-stone-100 hover:bg-emerald-50 text-stone-700 hover:text-emerald-600 text-xs font-semibold flex items-center gap-2 transition-colors">
+        <a href="https://wa.me/77762438430" target="_blank" rel="noopener noreferrer" class="px-4 py-2 rounded-xl bg-stone-100 hover:bg-emerald-50 text-stone-700 hover:text-emerald-600 text-xs font-semibold flex items-center gap-2 transition-colors">
           <i data-lucide="message-circle" class="w-4 h-4"></i> WhatsApp
         </a>
       </div>
@@ -238,9 +238,16 @@
           />
         </div>
 
-        <div class="p-3 bg-red-50/70 border border-red-200/80 rounded-2xl flex items-center justify-between">
-          <span class="text-xs text-stone-600 font-bold">Сумма к переводу:</span>
-          <span class="text-red-600 font-black text-base" id="orderModalPrice">0 ₸</span>
+        <!-- Подсказка с номером для перевода -->
+        <div class="p-3 bg-red-50/70 border border-red-200/80 rounded-2xl space-y-1.5">
+          <div class="flex items-center justify-between text-xs">
+            <span class="text-stone-600 font-bold">Номер для Kaspi:</span>
+            <span class="text-stone-900 font-extrabold">+7 776 243 84 30</span>
+          </div>
+          <div class="flex items-center justify-between text-xs pt-1 border-t border-red-100">
+            <span class="text-stone-600 font-bold">Сумма к оплате:</span>
+            <span class="text-red-600 font-black text-base" id="orderModalPrice">0 ₸</span>
+          </div>
         </div>
 
         <!-- КНОПКА ОПЛАТЫ -->
@@ -250,10 +257,10 @@
           class="w-full py-3.5 px-4 bg-red-600 hover:bg-red-700 text-white rounded-xl text-xs font-black transition-all shadow-md flex items-center justify-center gap-2"
         >
           <i data-lucide="credit-card" class="w-4 h-4"></i>
-          Оплатить в Kaspi
+          Оплатить в Kaspi (скопировать сумму и открыть)
         </button>
 
-        <p class="text-[10px] text-center text-stone-400 leading-tight">Номер +7 700 685 24 66 скопируется автоматически, затем откроется WhatsApp с чеком.</p>
+        <p class="text-[10px] text-center text-stone-400 leading-tight">Сумма и номер скопируются автоматически при нажатии.</p>
       </form>
 
       <!-- БЛОК ПОСЛЕ НАЖАТИЯ ОПЛАТЫ (ОТПРАВКА В WHATSAPP) -->
@@ -262,7 +269,7 @@
           <i data-lucide="check-circle-2" class="w-7 h-7"></i>
         </div>
         <div>
-          <h4 class="font-bold text-sm text-stone-900">Завершили перевод?</h4>
+          <h4 class="font-bold text-sm text-stone-900">Завершили перевод в Kaspi?</h4>
           <p class="text-xs text-stone-500 mt-0.5">Нажмите кнопку ниже, чтобы отправить чек и имя баристе в WhatsApp</p>
         </div>
         
@@ -280,8 +287,8 @@
   </div>
 
   <script>
-    const COFFEE_WHATSAPP_PHONE = "77006852466";
-    const KASPI_PHONE_NUMBER = "77006852466";
+    const COFFEE_WHATSAPP_PHONE = "77762438430";
+    const KASPI_PHONE_NUMBER = "77762438430";
 
     const menuData = [
       {
@@ -906,8 +913,9 @@
 
       preparedWhatsAppUrl = `https://wa.me/${COFFEE_WHATSAPP_PHONE}?text=${encodeURIComponent(message)}`;
 
+      // Копируем сумму и номер в буфер для удобства вставки в Kaspi
       if (navigator.clipboard) {
-        navigator.clipboard.writeText(KASPI_PHONE_NUMBER);
+        navigator.clipboard.writeText(`${KASPI_PHONE_NUMBER} сумма ${currentPrice} тенге`);
       }
 
       const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
