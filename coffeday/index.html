@@ -1,0 +1,1124 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>COFFEEDAY | Электронное Меню & Оплата</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- QR Code Generator Library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              teal: '#008B8B',
+              darkteal: '#0e4e52',
+              cream: '#FAF7F2',
+              card: '#FFFFFF',
+              dark: '#1A1816',
+              gold: '#D97706',
+              kaspi: '#F14635'
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    .glass-effect {
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+  </style>
+</head>
+<body class="bg-brand-cream text-brand-dark antialiased min-h-screen flex flex-col justify-between">
+
+  <!-- TOP HEADER -->
+  <header class="sticky top-0 z-40 glass-effect border-b border-stone-200/80 shadow-xs transition-all">
+    <div class="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between gap-3">
+      <!-- Logo -->
+      <a href="#" onclick="navigateToList(); return false;" class="flex items-center gap-2 group">
+        <div class="w-10 h-10 rounded-2xl bg-brand-darkteal flex items-center justify-center text-white font-extrabold text-xl shadow-md group-hover:scale-105 transition-transform">
+          CD
+        </div>
+        <div>
+          <div class="font-black text-lg tracking-wider text-stone-900 flex items-center gap-1">
+            COFFEE<span class="text-brand-teal">DAY</span>
+          </div>
+          <p class="text-[10px] uppercase tracking-widest text-stone-500 font-semibold leading-none">Pavlodar</p>
+        </div>
+      </a>
+
+      <!-- Action buttons -->
+      <div class="flex items-center gap-2">
+        <button id="qrOpenBtn" type="button" class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-stone-100 hover:bg-stone-200 text-stone-700 text-xs font-bold transition-colors">
+          <i data-lucide="qr-code" class="w-4 h-4 text-brand-darkteal"></i>
+          <span class="hidden sm:inline">QR-меню</span>
+        </button>
+
+        <a href="https://www.instagram.com/coffeeday_pavlodar/" target="_blank" rel="noopener noreferrer" class="w-8 h-8 flex items-center justify-center rounded-full bg-stone-100 hover:bg-pink-100 text-stone-700 hover:text-pink-600 transition-colors" title="Instagram">
+          <i data-lucide="instagram" class="w-4 h-4"></i>
+        </a>
+      </div>
+    </div>
+
+    <!-- MAIN VIEW CONTROLS (SEARCH & TABS) -->
+    <div id="mainViewControls">
+      <!-- SEARCH BAR -->
+      <div class="max-w-4xl mx-auto px-4 pb-2.5">
+        <div class="relative">
+          <i data-lucide="search" class="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-stone-400"></i>
+          <input 
+            type="text" 
+            id="searchInput" 
+            placeholder="Поиск по первой букве (капучино, банан, чай, раф)..." 
+            class="w-full bg-white rounded-xl pl-10 pr-9 py-2 text-sm border border-stone-200 focus:outline-none focus:ring-2 focus:ring-brand-teal/40 transition-all shadow-xs"
+          />
+          <button id="clearSearchBtn" type="button" class="hidden absolute right-3 top-1/2 -translate-y-1/2 text-stone-400 hover:text-stone-600">
+            <i data-lucide="x" class="w-4 h-4"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- CATEGORY TABS -->
+      <div class="max-w-4xl mx-auto px-4 overflow-x-auto no-scrollbar pb-2.5 pt-0.5 flex items-center gap-2" id="categoryTabs"></div>
+    </div>
+  </header>
+
+  <!-- ================= VIEW 1: CATALOG VIEW ================= -->
+  <div id="catalogView">
+    <section class="max-w-4xl mx-auto px-4 pt-4 pb-2 w-full">
+      <div class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-brand-darkteal via-[#136166] to-[#1a383a] text-white p-5 sm:p-6 shadow-xl">
+        <div class="relative z-10">
+          <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/10 backdrop-blur-md text-teal-200 text-xs font-semibold mb-2">
+            <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
+            <span>Every Day Good Mood</span>
+          </div>
+          <h1 class="text-2xl sm:text-3xl font-black tracking-tight mb-1">Меню Кофейни</h1>
+          <p class="text-xs sm:text-sm text-stone-200 max-w-md">Быстрая оплата в приложении Kaspi и мгновенное уведомление баристе в WhatsApp!</p>
+          
+          <div class="mt-4 flex flex-wrap gap-2 text-[11px] text-stone-300">
+            <div class="bg-black/20 backdrop-blur-md px-2.5 py-1 rounded-lg border border-white/10">
+              ➕ Доп. шот эспрессо: <b class="text-white">390 ₸</b>
+            </div>
+            <div class="bg-black/20 backdrop-blur-md px-2.5 py-1 rounded-lg border border-white/10">
+              🍯 Сиропы (20 мл): <b class="text-white">150 ₸</b>
+            </div>
+          </div>
+        </div>
+        <div class="absolute -right-6 -bottom-10 w-44 h-44 bg-teal-400/10 rounded-full blur-2xl"></div>
+      </div>
+    </section>
+
+    <!-- MENU CARDS CONTAINER -->
+    <main class="max-w-4xl mx-auto px-4 py-4 w-full" id="menuContainer"></main>
+  </div>
+
+  <!-- ================= VIEW 2: PRODUCT DETAIL PAGE ================= -->
+  <div id="detailView" class="hidden flex-grow">
+    <main class="max-w-3xl mx-auto px-4 py-5 w-full" id="detailContent"></main>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="bg-white border-t border-stone-200/80 mt-12 py-8">
+    <div class="max-w-4xl mx-auto px-4 text-center">
+      <div class="font-black text-xl tracking-wider text-stone-900 mb-1">
+        COFFEE<span class="text-brand-teal">DAY</span>
+      </div>
+      <p class="text-xs text-stone-500 font-medium mb-4">г. Павлодар • Every Day Good Mood</p>
+
+      <div class="flex justify-center items-center gap-3 sm:gap-4 mb-6 flex-wrap">
+        <a href="https://www.instagram.com/coffeeday_pavlodar/" target="_blank" rel="noopener noreferrer" class="px-4 py-2 rounded-xl bg-stone-100 hover:bg-pink-50 text-stone-700 hover:text-pink-600 text-xs font-semibold flex items-center gap-2 transition-colors">
+          <i data-lucide="instagram" class="w-4 h-4"></i> Instagram
+        </a>
+        <a href="https://2gis.kz/pavlodar/search/coffeeday" target="_blank" rel="noopener noreferrer" class="px-4 py-2 rounded-xl bg-stone-100 hover:bg-emerald-50 text-stone-700 hover:text-emerald-600 text-xs font-semibold flex items-center gap-2 transition-colors">
+          <i data-lucide="map-pin" class="w-4 h-4"></i> 2GIS Карта
+        </a>
+        <a href="https://wa.me/77006852466" target="_blank" rel="noopener noreferrer" class="px-4 py-2 rounded-xl bg-stone-100 hover:bg-emerald-50 text-stone-700 hover:text-emerald-600 text-xs font-semibold flex items-center gap-2 transition-colors">
+          <i data-lucide="message-circle" class="w-4 h-4"></i> WhatsApp
+        </a>
+      </div>
+
+      <p class="text-[11px] text-stone-400">Цены актуальны на момент просмотра электронного меню.</p>
+    </div>
+  </footer>
+
+  <!-- QR CODE MODAL -->
+  <div id="qrModal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl p-6 max-w-xs w-full text-center shadow-2xl relative">
+      <button id="qrCloseBtn" type="button" class="absolute right-4 top-4 text-stone-400 hover:text-stone-600">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+
+      <div class="w-12 h-12 bg-brand-cream rounded-2xl flex items-center justify-center mx-auto mb-3 text-brand-darkteal">
+        <i data-lucide="qr-code" class="w-6 h-6"></i>
+      </div>
+      <h3 class="font-black text-lg text-stone-900">QR-код на меню</h3>
+      <p class="text-xs text-stone-500 mt-1 mb-4">Наведите камеру смартфона, чтобы открыть электронное меню</p>
+
+      <div class="p-4 bg-stone-50 rounded-2xl inline-block border border-stone-200 shadow-inner mb-4" id="qrcode"></div>
+
+      <button onclick="window.print()" class="w-full py-2.5 px-4 bg-brand-darkteal hover:bg-brand-teal text-white rounded-xl text-xs font-bold transition-all shadow-md flex items-center justify-center gap-2">
+        <i data-lucide="printer" class="w-4 h-4"></i> Распечатать / Сохранить
+      </button>
+    </div>
+  </div>
+
+  <!-- ORDER & KASPI DIRECT MODAL -->
+  <div id="orderModal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl p-6 max-w-sm w-full shadow-2xl relative">
+      <button onclick="closeOrderModal()" class="absolute right-4 top-4 text-stone-400 hover:text-stone-600">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+
+      <div class="flex items-center gap-3 mb-4">
+        <div class="w-11 h-11 bg-red-50 text-red-600 rounded-2xl flex items-center justify-center font-black text-xl">
+          ₸
+        </div>
+        <div>
+          <h3 class="font-black text-base text-stone-900">Оплата через Kaspi</h3>
+          <p class="text-xs text-stone-500" id="orderModalItemTitle">Напиток</p>
+        </div>
+      </div>
+
+      <!-- ФОРМА ДО ОПЛАТЫ -->
+      <form id="orderForm" onsubmit="handlePayAndForward(event)" class="space-y-3.5">
+        <div>
+          <label class="block text-xs font-bold text-stone-700 mb-1">Ваше имя *</label>
+          <input 
+            type="text" 
+            id="orderCustomerName" 
+            placeholder="Введите ваше имя" 
+            class="w-full bg-stone-50 border border-stone-200 rounded-xl px-3 py-2 text-xs focus:ring-2 focus:ring-red-500/30 focus:outline-none"
+            required
+          />
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-stone-700 mb-1">Где вы находитесь? *</label>
+          <div class="grid grid-cols-2 gap-2 mb-1.5">
+            <button type="button" id="btnPlaceHall" onclick="setPlaceType('hall')" class="py-1.5 text-xs font-bold rounded-xl border border-red-500 bg-red-50 text-red-700">В зале</button>
+            <button type="button" id="btnPlaceTogo" onclick="setPlaceType('togo')" class="py-1.5 text-xs font-bold rounded-xl border border-stone-200 bg-white text-stone-600">С собой</button>
+          </div>
+          <input 
+            type="text" 
+            id="orderTableNumber" 
+            placeholder="Номер столика (например: Столик 3)" 
+            class="w-full bg-stone-50 border border-stone-200 rounded-xl px-3 py-2 text-xs focus:ring-2 focus:ring-red-500/30 focus:outline-none"
+            required
+          />
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-stone-700 mb-1">Пожелания (необязательно)</label>
+          <input 
+            type="text" 
+            id="orderComment" 
+            placeholder="Без сахара / сироп / потеплее" 
+            class="w-full bg-stone-50 border border-stone-200 rounded-xl px-3 py-2 text-xs focus:ring-2 focus:ring-red-500/30 focus:outline-none"
+          />
+        </div>
+
+        <div class="p-3 bg-red-50/70 border border-red-200/80 rounded-2xl flex items-center justify-between">
+          <span class="text-xs text-stone-600 font-bold">Сумма к переводу:</span>
+          <span class="text-red-600 font-black text-base" id="orderModalPrice">0 ₸</span>
+        </div>
+
+        <!-- КНОПКА ОПЛАТЫ -->
+        <button 
+          type="submit" 
+          id="btnPayKaspi"
+          class="w-full py-3.5 px-4 bg-red-600 hover:bg-red-700 text-white rounded-xl text-xs font-black transition-all shadow-md flex items-center justify-center gap-2"
+        >
+          <i data-lucide="credit-card" class="w-4 h-4"></i>
+          Оплатить в Kaspi
+        </button>
+
+        <p class="text-[10px] text-center text-stone-400 leading-tight">Номер +7 700 685 24 66 скопируется автоматически, затем откроется WhatsApp с чеком.</p>
+      </form>
+
+      <!-- БЛОК ПОСЛЕ НАЖАТИЯ ОПЛАТЫ (ОТПРАВКА В WHATSAPP) -->
+      <div id="afterPayBlock" class="hidden text-center space-y-3 pt-1">
+        <div class="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-full flex items-center justify-center mx-auto">
+          <i data-lucide="check-circle-2" class="w-7 h-7"></i>
+        </div>
+        <div>
+          <h4 class="font-bold text-sm text-stone-900">Завершили перевод?</h4>
+          <p class="text-xs text-stone-500 mt-0.5">Нажмите кнопку ниже, чтобы отправить чек и имя баристе в WhatsApp</p>
+        </div>
+        
+        <button 
+          type="button" 
+          onclick="sendDirectWhatsApp()"
+          class="w-full py-3.5 px-4 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-black transition-all shadow-md flex items-center justify-center gap-2"
+        >
+          <i data-lucide="message-circle" class="w-4 h-4"></i>
+          Отправить чек в WhatsApp баристе
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    const COFFEE_WHATSAPP_PHONE = "77006852466";
+    const KASPI_PHONE_NUMBER = "77006852466";
+
+    const menuData = [
+      {
+        id: "coffee",
+        name: "Кофе классика",
+        items: [
+          { 
+            id: "c_esp", 
+            name: "Эспрессо", 
+            desc: "Двойной шот насыщенного эспрессо", 
+            vol: "40 мл", 
+            prices: { "40 мл": 790 }, 
+            badge: "Классика",
+            image: "https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?w=900&auto=format&fit=crop&q=80",
+            composition: ["Двойной шот свежесмолотого зерна арабики 100%", "Очищенная горячая вода под давлением 9 бар", "Плотная шелковистая крема орехового оттенка"],
+            grams: "Вес порции: ~40 г (из закладки 18-20 г свежего зерна)",
+            fact: "Слово «espresso» в переводе с итальянского означает не «быстрый», а «спрессованный» или «сваренный под давлением специально для вас»."
+          },
+          { 
+            id: "c_decaf", 
+            name: "Декаф Кофе", 
+            desc: "Кофе без кофеина для легкого вечера", 
+            vol: "Стандарт", 
+            prices: { "Стандарт": 490 },
+            image: "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=900&auto=format&fit=crop&q=80",
+            composition: ["Зерна спешелти арабики, декофеинизированные водным методом Swiss Water", "Горячая очищенная вода"],
+            grams: "Объем: ~150-200 мл",
+            fact: "Декаф сохраняет до 99.9% вкусовых дескрипторов натурального кофе, при этом в чашке остается меньше кофеина, чем в дольке темного шоколада."
+          },
+          { 
+            id: "c_amr", 
+            name: "Американо", 
+            desc: "Двойное эспрессо, горячая вода, молоко по выбору", 
+            vol: ["350 мл", "450 мл"], 
+            prices: { "350 мл": 990, "450 мл": 1290 },
+            image: "https://images.unsplash.com/photo-1551030173-122aabc4489c?w=900&auto=format&fit=crop&q=80",
+            composition: ["Двойной шот эспрессо (Doppio)", "Горячая фильтрованная вода оптимальной минерализации", "Опционально: теплое или холодное молоко"],
+            grams: "Объем: 350 мл / 450 мл",
+            fact: "Напиток родился во время Второй мировой войны в Италии: американским солдатам местный эспрессо казался слишком крепким, и бариста разбавляли его кипятком."
+          },
+          { 
+            id: "c_flat", 
+            name: "Флэт Уайт", 
+            desc: "Двойной эспрессо с шелковистым молоком", 
+            vol: "250 мл", 
+            prices: { "250 мл": 1190 },
+            image: "https://images.unsplash.com/photo-1577968897966-3d4325b36b61?w=900&auto=format&fit=crop&q=80",
+            composition: ["Двойной шот эспрессо", "Взбитое микроструктурированное молоко без толстой пены"],
+            grams: "Объем: 250 мл (баланс в пользу насыщенного кофейного вкуса)",
+            fact: "Флэт Уайт был изобретен в 1980-х годах в Новой Зеландии и Австралии как альтернатива слишком пышной пене классического капучино."
+          },
+          { 
+            id: "c_cap", 
+            name: "Капучино", 
+            desc: "Двойное эспрессо, молоко, густая пена 30%", 
+            vol: ["350 мл", "450 мл"], 
+            prices: { "350 мл": 1190, "450 мл": 1390 }, 
+            badge: "Хит",
+            image: "https://images.unsplash.com/photo-1534778101976-62847782c213?w=900&auto=format&fit=crop&q=80",
+            composition: ["Двойное эспрессо", "Свежее цельное молоко 3.2%", "Плотная бархатная молочная пена 30%"],
+            grams: "Объем: 350 мл / 450 мл",
+            fact: "Название напитка восходит к ордену монахов-капуцинов: цвет кофе с молочной пенкой в точности повторял оттенок их традиционных коричневых ряс."
+          },
+          { 
+            id: "c_lat", 
+            name: "Латте", 
+            desc: "Одинарный эспрессо, большое количество взбитого молока", 
+            vol: ["350 мл", "450 мл"], 
+            prices: { "350 мл": 1190, "450 мл": 1290 },
+            image: "https://images.unsplash.com/photo-1570968915860-54d5c301fa9f?w=900&auto=format&fit=crop&q=80",
+            composition: ["Шот ароматного одинарного эспрессо", "Большая порция деликатно прогретого взбитого молока"],
+            grams: "Объем: 350 мл / 450 мл",
+            fact: "В Италии, если вы закажете просто «latte», вам принесут обычный стакан холодного молока. Правильное название для заказа в Риме — «caffè latte»."
+          },
+          { 
+            id: "c_date_lat", 
+            name: "Финиковый Латте", 
+            desc: "Эспрессо, молоко и натуральная сладость фиников", 
+            vol: ["350 мл", "450 мл"], 
+            prices: { "350 мл": 1290, "450 мл": 1490 }, 
+            badge: "Спешелти",
+            image: "https://images.unsplash.com/photo-1541167760496-1628856ab772?w=900&auto=format&fit=crop&q=80",
+            composition: ["Свежесваренный эспрессо", "Натуральная основа из отборных фиников", "Взбитое теплое молоко"],
+            grams: "Объем: 350 мл / 450 мл",
+            fact: "Финики служат идеальным природным подсластителем без рафинированного сахара, придавая кофе карамельно-медовый бархатный шлейф."
+          },
+          { 
+            id: "c_mocc", 
+            name: "Мокко / Моккочино", 
+            desc: "Двойное эспрессо, молоко, шоколад", 
+            vol: ["350 мл", "450 мл"], 
+            prices: { "350 мл": 1390, "450 мл": 1490 },
+            image: "https://images.unsplash.com/photo-1578314675249-a6910f80cc4e?w=900&auto=format&fit=crop&q=80",
+            composition: ["Двойное эспрессо", "Бельгийский шоколад", "Взбитое цельное молоко"],
+            grams: "Объем: 350 мл / 450 мл",
+            fact: "Свое имя напиток получил в честь древнего портового города Моха в Йемене, откуда в Европу впервые начали поставлять кофейные зерна с шоколадным профилем."
+          },
+          { 
+            id: "c_viet", 
+            name: "Кофе по-вьетнамски", 
+            desc: "Эспрессо, сладкое сгущенное молоко, взбитое молоко", 
+            vol: ["350 мл", "450 мл"], 
+            prices: { "350 мл": 1390, "450 мл": 1490 },
+            image: "https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?w=900&auto=format&fit=crop&q=80",
+            composition: ["Крепкий насыщенный эспрессо", "Сгущенное цельное молоко", "Взбитое молоко"],
+            grams: "Объем: 350 мл / 450 мл",
+            fact: "Во Вьетнаме сгущенка стала национальным стандартом еще в XIX веке из-за тропической жары и дефицита свежего молока."
+          }
+        ]
+      },
+      {
+        id: "raf",
+        name: "Раф & Десертный кофе",
+        items: [
+          { 
+            id: "r_classic", 
+            name: "Раф Ванильный / Классический", 
+            desc: "Двойное эспрессо, ванильный сахар/сироп, сливки 10%", 
+            vol: ["350 мл", "450 мл"], 
+            prices: { "350 мл": 1490, "450 мл": 1590 }, 
+            badge: "Любимое",
+            image: "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=900&auto=format&fit=crop&q=80",
+            composition: ["Двойной шот эспрессо", "Питьевые сливки 10%", "Натуральный ванильный сахар или сироп", "Взбивается всё вместе в питчере до кремовой пены"],
+            grams: "Объем: 350 мл / 450 мл",
+            fact: "Раф-кофе был изобретен в Москве в конце 90-х для постоянного гостя по имени Рафаэль, просившего сделать что-то особенно мягкое."
+          },
+          { 
+            id: "r_caramel_cheese", 
+            name: "Карамельный Раф Чиз", 
+            desc: "Эспрессо, сливки, сливочный сыр и тягучая карамель", 
+            vol: ["350 мл", "450 мл"], 
+            prices: { "350 мл": 1590, "450 мл": 1690 }, 
+            badge: "Топ",
+            image: "https://images.unsplash.com/photo-1517256064527-09c73fc73e38?w=900&auto=format&fit=crop&q=80",
+            composition: ["Эспрессо", "Сливки 10%", "Сливочный сыр Cremette", "Тягучая сливочная карамель"],
+            grams: "Объем: 350 мл / 450 мл",
+            fact: "Сливочный сыр при взбивании паром дает текстуру растаявшего чизкейка, превращая кофе в полноценный десерт."
+          },
+          { 
+            id: "r_halva", 
+            name: "Раф с халвой", 
+            desc: "Эспрессо, нежные сливки, натуральная халва", 
+            vol: ["350 мл", "450 мл"], 
+            prices: { "350 мл": 1590, "450 мл": 1690 },
+            image: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=900&auto=format&fit=crop&q=80",
+            composition: ["Эспрессо", "Сливки 10%", "Натуральная халва тонкого помола"],
+            grams: "Объем: 350 мл / 450 мл",
+            fact: "Халва полностью растворяется вместе со сливками под горячим паром, раскрывая глубокий орехово-карамельный вкус."
+          }
+        ]
+      },
+      {
+        id: "ice_coffee",
+        name: "Холодный кофе",
+        items: [
+          { 
+            id: "ic_amr", 
+            name: "Айс Американо", 
+            desc: "Эспрессо, лед, фильтрованная вода", 
+            vol: "400 мл", 
+            prices: { "400 мл": 1290 },
+            image: "https://images.unsplash.com/photo-1517701604599-bb29b565090c?w=900&auto=format&fit=crop&q=80",
+            composition: ["Двойной эспрессо", "Кубиковый чистый лед", "Холодная артезианская вода"],
+            grams: "Объем: 400 мл",
+            fact: "Айс американо — самый популярный напиток в Южной Корее круглый год."
+          },
+          { 
+            id: "ic_lat", 
+            name: "Айс Латте", 
+            desc: "Эспрессо, кубики льда, охлажденное молоко", 
+            vol: ["400 мл", "500 мл"], 
+            prices: { "400 мл": 1290, "500 мл": 1390 },
+            image: "https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?w=900&auto=format&fit=crop&q=80",
+            composition: ["Эспрессо", "Охлажденное цельное молоко", "Пищевой лед"],
+            grams: "Объем: 400 мл / 500 мл",
+            fact: "При правильной подаче айс латте ложится красивыми контрастными слоями с эффектом омбре."
+          },
+          { 
+            id: "ic_bumble_juice", 
+            name: "Бамбл Сок", 
+            desc: "Эспрессо, кубики льда и апельсиновый сок", 
+            vol: "400 мл", 
+            prices: { "400 мл": 1690 },
+            image: "https://images.unsplash.com/photo-1551024709-8f23befc6f87?w=900&auto=format&fit=crop&q=80",
+            composition: ["Шот эспрессо", "Натуральный апельсиновый сок", "Карамельный сироп", "Лед"],
+            grams: "Объем: 400 мл",
+            fact: "Напиток назван в честь шмеля ('bumblebee') за счет ярких желто-черных полосок сока и кофе."
+          },
+          { 
+            id: "ic_bumble_fresh", 
+            name: "Бамбл Фреш", 
+            desc: "Эспрессо, лед, свежевыжатый апельсиновый сок", 
+            vol: "400 мл", 
+            prices: { "400 мл": 2690 }, 
+            badge: "Премиум",
+            image: "https://images.unsplash.com/photo-1621263764928-df1444c5e859?w=900&auto=format&fit=crop&q=80",
+            composition: ["Эспрессо", "Свежевыжатый фреш из сочных апельсинов", "Кубиковый лед"],
+            grams: "Объем: 400 мл",
+            fact: "Цитрусовая кислота свежего фреша раскрывает тонкие фруктовые нотки спешелти-арабики."
+          },
+          { 
+            id: "ic_tonic", 
+            name: "Эспрессо Тоник", 
+            desc: "Двойной эспрессо, освежающий тоник, долька цитруса, лед", 
+            vol: "400 мл", 
+            prices: { "400 мл": 1790 },
+            image: "https://images.unsplash.com/photo-1556881286-fc6915169721?w=900&auto=format&fit=crop&q=80",
+            composition: ["Двойной эспрессо", "Игристый тоник с хинином", "Долька лайма или апельсина", "Лед"],
+            grams: "Объем: 400 мл",
+            fact: "Рецепт эспрессо-тоника случайно открыли в Швеции в 2007 году после закрытия кофейни."
+          }
+        ]
+      },
+      {
+        id: "tea",
+        name: "Горячие напитки & Чай",
+        items: [
+          { 
+            id: "t_tashkent", 
+            name: "Ташкентский чай", 
+            desc: "Лимон, сочный апельсин, свежая мята, сироп, чай", 
+            vol: ["350 мл", "450 мл"], 
+            prices: { "350 мл": 1090, "450 мл": 1290 }, 
+            badge: "Хит",
+            image: "https://images.unsplash.com/photo-1576092768241-dec231879fc3?w=900&auto=format&fit=crop&q=80",
+            composition: ["Купаж отборного черного и зеленого чая", "Свежие кружочки лимона и апельсина", "Веточки горной мяты", "Натуральный сироп"],
+            grams: "Объем: 350 мл / 450 мл",
+            fact: "Ташкентский чай — главный символ восточного гостеприимства и согревающего уюта."
+          },
+          { 
+            id: "t_morocco", 
+            name: "Марокканский чай", 
+            desc: "Чай, мята, гвоздика, корица, бадьян, лимон, апельсин", 
+            vol: ["350 мл", "450 мл"], 
+            prices: { "350 мл": 1090, "450 мл": 1290 },
+            image: "https://images.unsplash.com/photo-1597481499750-3e6b22637e12?w=900&auto=format&fit=crop&q=80",
+            composition: ["Зеленый чай", "Мята", "Пряности: палочка корицы, звездочка бадьяна, гвоздика", "Цитрусы"],
+            grams: "Объем: 350 мл / 450 мл",
+            fact: "В Марокко чай наливают с большой высоты, насыщая кислородом и создавая пенную шапочку."
+          },
+          { 
+            id: "t_seabuck", 
+            name: "Облепиховый чай", 
+            desc: "Облепиховый соус, апельсиновый сок, апельсин, облепиха", 
+            vol: ["350 мл", "450 мл"], 
+            prices: { "350 мл": 1090, "450 мл": 1290 },
+            image: "https://images.unsplash.com/photo-1544787219-7f47ccb76574?w=900&auto=format&fit=crop&q=80",
+            composition: ["Натуральный облепиховый соус", "Цельные ягоды алтайской облепихи", "Апельсиновый сок", "Апельсин"],
+            grams: "Объем: 350 мл / 450 мл",
+            fact: "Облепиха содержит в 10 раз больше витамина C, чем цитрусовые, сохраняя свойства при заваривании."
+          },
+          { 
+            id: "t_cacao", 
+            name: "Какао", 
+            desc: "Натуральное какао и теплое взбитое молоко", 
+            vol: ["350 мл", "450 мл"], 
+            prices: { "350 мл": 1190, "450 мл": 1390 },
+            image: "https://images.unsplash.com/photo-1542990253-0d0f5be5f0ed?w=900&auto=format&fit=crop&q=80",
+            composition: ["Натуральный порошок какао-бобов", "Цельное взбитое молоко", "Тростниковый сахар"],
+            grams: "Объем: 350 мл / 450 мл",
+            fact: "Древние племена майя считали горячий напиток из какао-бобов священным эликсиром сил."
+          }
+        ]
+      },
+      {
+        id: "shakes",
+        name: "Шейки & Смузи",
+        items: [
+          { 
+            id: "sh_oreo", 
+            name: "Шейк Oreo", 
+            desc: "Хрустящее печенье Oreo, мороженое, молоко", 
+            vol: ["400 мл", "500 мл"], 
+            prices: { "400 мл": 1590, "500 мл": 1690 }, 
+            badge: "Хит",
+            image: "https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=900&auto=format&fit=crop&q=80",
+            composition: ["Печенье Oreo в крошке", "Натуральный сливочный пломбир", "Цельное охлажденное молоко"],
+            grams: "Объем: 400 мл / 500 мл",
+            fact: "Печенье Oreo производится уже более 110 лет и является самым продаваемым в мире."
+          },
+          { 
+            id: "sh_berry_smoothie", 
+            name: "Смузи Ягодно-Банановый", 
+            desc: "Банан, черная смородина, мороженое, нат. сок", 
+            vol: ["400 мл", "500 мл"], 
+            prices: { "400 мл": 1690, "500 мл": 1790 },
+            image: "https://images.unsplash.com/photo-1553530666-ba11a7da3888?w=900&auto=format&fit=crop&q=80",
+            composition: ["Спелый банан", "Ягоды черной смородины", "Пломбирная основа", "Натуральный сок"],
+            grams: "Объем: 400 мл / 500 мл",
+            fact: "Слово 'smoothie' происходит от английского 'smooth', что означает гладкую шелковистую текстуру."
+          }
+        ]
+      },
+      {
+        id: "showcase",
+        name: "Витрина & Десерты",
+        items: [
+          { 
+            id: "sc_cr_classic", 
+            name: "Круассан классический", 
+            desc: "Хрустящее слоеное тесто на сливочном масле", 
+            vol: "1 шт", 
+            prices: { "1 шт": 750 },
+            image: "https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=900&auto=format&fit=crop&q=80",
+            composition: ["Слоеное тесто французской рецептуры", "Натуральное сливочное масло 82.5%"],
+            grams: "Вес: ~85 г",
+            fact: "Форма полумесяца круассана впервые появилась в Вене под названием 'кипферль'."
+          },
+          { 
+            id: "sc_cheesecake", 
+            name: "Чизкейк Сан-Себастьян", 
+            desc: "Нежнейший баскский чизкейк с карамельной корочкой", 
+            vol: "порция", 
+            prices: { "порция": 1490 }, 
+            badge: "Хит",
+            image: "https://images.unsplash.com/photo-1533134242443-d4fd215305ad?w=900&auto=format&fit=crop&q=80",
+            composition: ["Сливочный творожный сыр Cremette", "Сливки 33%", "Карамелизованная обожженная корочка"],
+            grams: "Вес: ~150-160 г",
+            fact: "Выпекается при температуре до 240°C, благодаря чему корочка карамелизуется, а серединка остается тающей."
+          }
+        ]
+      }
+    ];
+
+    let currentCategory = 'all';
+    let searchQuery = '';
+    const selectedVolumes = {};
+    let activeOrderItem = null;
+    let placeType = 'hall';
+    let preparedWhatsAppUrl = '';
+
+    function normalizeText(str) {
+      if (!str) return '';
+      return str.toString().toLowerCase().replace(/ё/g, 'е').trim();
+    }
+
+    function init() {
+      menuData.forEach(cat => {
+        cat.items.forEach(item => {
+          selectedVolumes[item.id] = Array.isArray(item.vol) ? item.vol[0] : item.vol;
+        });
+      });
+
+      renderTabs();
+      renderMenu();
+
+      const searchInput = document.getElementById('searchInput');
+      const clearSearchBtn = document.getElementById('clearSearchBtn');
+
+      searchInput.addEventListener('input', (e) => {
+        searchQuery = normalizeText(e.target.value);
+        if (searchQuery.length > 0) {
+          clearSearchBtn.classList.remove('hidden');
+          if (currentCategory !== 'all') {
+            currentCategory = 'all';
+            renderTabs();
+          }
+        } else {
+          clearSearchBtn.classList.add('hidden');
+        }
+        renderMenu();
+      });
+
+      clearSearchBtn.addEventListener('click', () => {
+        searchInput.value = '';
+        searchQuery = '';
+        clearSearchBtn.classList.add('hidden');
+        renderMenu();
+      });
+
+      document.getElementById('qrOpenBtn').addEventListener('click', openQrModal);
+      document.getElementById('qrCloseBtn').addEventListener('click', closeQrModal);
+
+      window.addEventListener('hashchange', handleRoute);
+      handleRoute();
+    }
+
+    function findItemById(id) {
+      for (const cat of menuData) {
+        const item = cat.items.find(i => i.id === id);
+        if (item) return { item, category: cat };
+      }
+      return null;
+    }
+
+    function handleRoute() {
+      const hash = window.location.hash;
+      if (hash.startsWith('#item-')) {
+        const itemId = hash.replace('#item-', '');
+        const data = findItemById(itemId);
+        if (data) {
+          renderDetailPage(data.item, data.category);
+          return;
+        }
+      }
+      document.getElementById('catalogView').classList.remove('hidden');
+      document.getElementById('mainViewControls').classList.remove('hidden');
+      document.getElementById('detailView').classList.add('hidden');
+      window.scrollTo({ top: 0, behavior: 'instant' });
+      lucide.createIcons();
+    }
+
+    function navigateToItem(itemId) {
+      window.location.hash = `#item-${itemId}`;
+    }
+
+    function navigateToList() {
+      window.location.hash = '';
+    }
+
+    function renderDetailPage(item, category) {
+      document.getElementById('catalogView').classList.add('hidden');
+      document.getElementById('mainViewControls').classList.add('hidden');
+      const detailView = document.getElementById('detailView');
+      detailView.classList.remove('hidden');
+
+      const isMultiVol = Array.isArray(item.vol);
+      const currentVol = selectedVolumes[item.id] || (isMultiVol ? item.vol[0] : item.vol);
+      const currentPrice = item.prices[currentVol] || Object.values(item.prices)[0];
+
+      const html = `
+        <button 
+          onclick="navigateToList()" 
+          class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white border border-stone-200 text-stone-700 hover:text-brand-darkteal text-xs font-bold mb-4 shadow-xs transition-colors"
+        >
+          <i data-lucide="arrow-left" class="w-4 h-4"></i>
+          <span>Назад в меню</span>
+        </button>
+
+        <div class="bg-white rounded-3xl overflow-hidden border border-stone-200/80 shadow-lg">
+          <div class="relative h-64 sm:h-80 w-full overflow-hidden bg-stone-100">
+            <img 
+              src="${item.image || 'https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=900&auto=format&fit=crop&q=80'}" 
+              alt="${item.name}" 
+              class="w-full h-full object-cover"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20"></div>
+
+            <div class="absolute top-4 left-4 flex gap-2">
+              <span class="text-xs font-bold px-3 py-1 rounded-full bg-white/90 backdrop-blur-md text-stone-800 shadow-sm">
+                ${category.name}
+              </span>
+              ${item.badge ? `
+                <span class="text-xs font-bold px-3 py-1 rounded-full bg-amber-500 text-white shadow-sm">
+                  ${item.badge}
+                </span>
+              ` : ''}
+            </div>
+
+            <div class="absolute bottom-4 left-4 right-4 text-white">
+              <h1 class="text-2xl sm:text-3xl font-black tracking-tight">${item.name}</h1>
+              <p class="text-stone-200 text-xs sm:text-sm mt-0.5">${item.desc}</p>
+            </div>
+          </div>
+
+          <div class="p-5 sm:p-6 space-y-6">
+            <div class="flex flex-wrap items-center justify-between gap-4 p-4 rounded-2xl bg-brand-cream border border-stone-200/60">
+              <div>
+                <p class="text-[11px] uppercase tracking-wider text-stone-500 font-bold">Стоимость</p>
+                <div class="text-2xl sm:text-3xl font-black text-brand-darkteal" id="detailPrice">
+                  ${currentPrice.toLocaleString()} ₸
+                </div>
+              </div>
+
+              ${isMultiVol ? `
+                <div class="flex items-center gap-1.5 bg-white p-1 rounded-xl border border-stone-200 shadow-xs">
+                  ${item.vol.map(v => `
+                    <button 
+                      type="button" 
+                      onclick="changeDetailVolume('${item.id}', '${v}', ${item.prices[v]})"
+                      class="detail-vol-btn px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${v === currentVol ? 'bg-brand-darkteal text-white shadow-xs' : 'text-stone-600 hover:text-stone-900'}"
+                      data-vol="${v}"
+                    >
+                      ${v}
+                    </button>
+                  `).join('')}
+                </div>
+              ` : `
+                <div class="px-3 py-1.5 bg-white rounded-xl border border-stone-200 text-xs font-bold text-stone-700">
+                  Объем: ${item.vol}
+                </div>
+              `}
+            </div>
+
+            <!-- КНОПКА БЫСТРОЙ ОПЛАТЫ -->
+            <button 
+              type="button"
+              onclick="openOrderModal('${item.id}')"
+              class="w-full py-4 px-6 rounded-2xl bg-red-600 hover:bg-red-700 text-white font-black text-sm transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2"
+            >
+              <i data-lucide="credit-card" class="w-5 h-5"></i>
+              <span>Оплатить через Kaspi (${currentPrice.toLocaleString()} ₸)</span>
+            </button>
+
+            <div class="flex items-center gap-3 text-xs text-stone-600 bg-stone-50 p-3 rounded-xl border border-stone-200/60">
+              <i data-lucide="scale" class="w-4 h-4 text-brand-teal shrink-0"></i>
+              <span><b>Параметры порции:</b> ${item.grams || 'Стандартная подача кофейни COFFEEDAY'}</span>
+            </div>
+
+            <div>
+              <h3 class="font-extrabold text-stone-900 text-base mb-2.5 flex items-center gap-2">
+                <i data-lucide="layers" class="w-4 h-4 text-brand-darkteal"></i>
+                Состав и ингредиенты
+              </h3>
+              <ul class="space-y-2">
+                ${(item.composition || [item.desc]).map(ing => `
+                  <li class="flex items-start gap-2.5 text-xs sm:text-sm text-stone-600">
+                    <span class="w-1.5 h-1.5 rounded-full bg-brand-teal mt-1.5 shrink-0"></span>
+                    <span>${ing}</span>
+                  </li>
+                `).join('')}
+              </ul>
+            </div>
+
+            <div class="p-4 rounded-2xl bg-amber-50/80 border border-amber-200/80">
+              <div class="flex items-center gap-2 text-amber-900 font-bold text-xs uppercase tracking-wider mb-1">
+                <i data-lucide="lightbulb" class="w-4 h-4 text-amber-600"></i>
+                Интересный факт
+              </div>
+              <p class="text-xs sm:text-sm text-amber-950 leading-relaxed">
+                ${item.fact || 'Каждый напиток в COFFEEDAY готовится со строгим соблюдением рецептуры.'}
+              </p>
+            </div>
+
+            <div class="pt-2">
+              <button 
+                onclick="navigateToList()" 
+                class="w-full py-3 px-4 rounded-xl bg-stone-100 hover:bg-stone-200 text-stone-800 text-xs sm:text-sm font-bold transition-all text-center"
+              >
+                ← Вернуться ко всем позициям
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+
+      detailView.querySelector('#detailContent').innerHTML = html;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      lucide.createIcons();
+    }
+
+    function changeDetailVolume(itemId, vol, price) {
+      selectedVolumes[itemId] = vol;
+      document.getElementById('detailPrice').innerText = price.toLocaleString() + ' ₸';
+      
+      document.querySelectorAll('.detail-vol-btn').forEach(b => {
+        if (b.getAttribute('data-vol') === vol) {
+          b.className = 'detail-vol-btn px-3 py-1.5 rounded-lg text-xs font-bold transition-all bg-brand-darkteal text-white shadow-xs';
+        } else {
+          b.className = 'detail-vol-btn px-3 py-1.5 rounded-lg text-xs font-bold transition-all text-stone-600 hover:text-stone-900';
+        }
+      });
+
+      const orderBtnSpan = document.querySelector('#detailContent button[onclick*="openOrderModal"] span');
+      if (orderBtnSpan) {
+        orderBtnSpan.innerText = `Оплатить через Kaspi (${price.toLocaleString()} ₸)`;
+      }
+    }
+
+    function setPlaceType(type) {
+      placeType = type;
+      const btnHall = document.getElementById('btnPlaceHall');
+      const btnTogo = document.getElementById('btnPlaceTogo');
+      const tableInput = document.getElementById('orderTableNumber');
+
+      if (type === 'hall') {
+        btnHall.className = 'py-1.5 text-xs font-bold rounded-xl border border-red-500 bg-red-50 text-red-700';
+        btnTogo.className = 'py-1.5 text-xs font-bold rounded-xl border border-stone-200 bg-white text-stone-600';
+        tableInput.placeholder = 'Номер столика (например: Столик 3)';
+        tableInput.value = '';
+        tableInput.required = true;
+      } else {
+        btnTogo.className = 'py-1.5 text-xs font-bold rounded-xl border border-red-500 bg-red-50 text-red-700';
+        btnHall.className = 'py-1.5 text-xs font-bold rounded-xl border border-stone-200 bg-white text-stone-600';
+        tableInput.placeholder = 'Имя для выдачи с собой';
+        tableInput.value = 'С собой';
+        tableInput.required = false;
+      }
+    }
+
+    function openOrderModal(itemId) {
+      const data = findItemById(itemId);
+      if (!data) return;
+      activeOrderItem = data.item;
+
+      const isMultiVol = Array.isArray(activeOrderItem.vol);
+      const currentVol = selectedVolumes[activeOrderItem.id] || (isMultiVol ? activeOrderItem.vol[0] : activeOrderItem.vol);
+      const currentPrice = activeOrderItem.prices[currentVol] || Object.values(activeOrderItem.prices)[0];
+
+      document.getElementById('orderModalItemTitle').innerText = `${activeOrderItem.name} (${currentVol})`;
+      document.getElementById('orderModalPrice').innerText = `${currentPrice.toLocaleString()} ₸`;
+      
+      document.getElementById('orderForm').classList.remove('hidden');
+      document.getElementById('afterPayBlock').classList.add('hidden');
+
+      document.getElementById('orderModal').classList.remove('hidden');
+      lucide.createIcons();
+    }
+
+    function closeOrderModal() {
+      document.getElementById('orderModal').classList.add('hidden');
+    }
+
+    function handlePayAndForward(e) {
+      e.preventDefault();
+      if (!activeOrderItem) return;
+
+      const customerName = document.getElementById('orderCustomerName').value.trim();
+      const place = document.getElementById('orderTableNumber').value.trim() || (placeType === 'hall' ? 'В зале' : 'С собой');
+      const comment = document.getElementById('orderComment').value.trim() || 'Без особых пожеланий';
+
+      const isMultiVol = Array.isArray(activeOrderItem.vol);
+      const currentVol = selectedVolumes[activeOrderItem.id] || (isMultiVol ? activeOrderItem.vol[0] : activeOrderItem.vol);
+      const currentPrice = activeOrderItem.prices[currentVol] || Object.values(activeOrderItem.prices)[0];
+
+      const message = `Здравствуйте! Оплата через Kaspi отправлена:\n` +
+        `👤 Имя клиента: ${customerName}\n` +
+        `☕️ Заказ: ${activeOrderItem.name} (${currentVol})\n` +
+        `💳 Сумма: ${currentPrice.toLocaleString()} ₸\n` +
+        `📍 Формат/Столик: ${place}\n` +
+        `📝 Пожелания: ${comment}`;
+
+      preparedWhatsAppUrl = `https://wa.me/${COFFEE_WHATSAPP_PHONE}?text=${encodeURIComponent(message)}`;
+
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(KASPI_PHONE_NUMBER);
+      }
+
+      const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+      if (isMobile) {
+        window.location.href = "kaspi://pay";
+      } else {
+        window.open("https://kaspi.kz/pay", "_blank");
+      }
+
+      document.getElementById('orderForm').classList.add('hidden');
+      document.getElementById('afterPayBlock').classList.remove('hidden');
+      lucide.createIcons();
+    }
+
+    function sendDirectWhatsApp() {
+      if (preparedWhatsAppUrl) {
+        window.open(preparedWhatsAppUrl, '_blank');
+        closeOrderModal();
+      }
+    }
+
+    function setCategory(catId) {
+      currentCategory = catId;
+      renderTabs();
+      renderMenu();
+    }
+
+    function renderTabs() {
+      const container = document.getElementById('categoryTabs');
+      let html = `
+        <button 
+          type="button"
+          data-category="all"
+          class="category-tab-btn whitespace-nowrap px-4 py-1.5 rounded-full text-xs font-bold transition-all ${currentCategory === 'all' ? 'bg-brand-darkteal text-white shadow-md' : 'bg-white text-stone-600 hover:bg-stone-100 border border-stone-200'}"
+        >
+          Все позиции
+        </button>
+      `;
+
+      menuData.forEach(cat => {
+        const isActive = currentCategory === cat.id;
+        html += `
+          <button 
+            type="button"
+            data-category="${cat.id}"
+            class="category-tab-btn whitespace-nowrap px-4 py-1.5 rounded-full text-xs font-bold transition-all ${isActive ? 'bg-brand-darkteal text-white shadow-md' : 'bg-white text-stone-600 hover:bg-stone-100 border border-stone-200'}"
+          >
+            ${cat.name}
+          </button>
+        `;
+      });
+
+      container.innerHTML = html;
+
+      container.querySelectorAll('.category-tab-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const targetCat = e.currentTarget.getAttribute('data-category');
+          setCategory(targetCat);
+        });
+      });
+    }
+
+    function renderMenu() {
+      const container = document.getElementById('menuContainer');
+      let html = '';
+      let totalFound = 0;
+
+      const categoriesToDisplay = menuData.filter(cat => {
+        if (searchQuery.length > 0) return true;
+        if (currentCategory === 'all') return true;
+        return cat.id === currentCategory;
+      });
+
+      categoriesToDisplay.forEach(cat => {
+        const matchedItems = cat.items.filter(item => {
+          if (!searchQuery) return true;
+          const normName = normalizeText(item.name);
+          const normDesc = normalizeText(item.desc);
+          const normBadge = normalizeText(item.badge || '');
+          const normComp = item.composition ? normalizeText(item.composition.join(' ')) : '';
+
+          return normName.includes(searchQuery) ||
+                 normDesc.includes(searchQuery) ||
+                 normBadge.includes(searchQuery) ||
+                 normComp.includes(searchQuery);
+        });
+
+        if (matchedItems.length === 0) return;
+        totalFound += matchedItems.length;
+
+        html += `
+          <div class="mb-8">
+            <div class="flex items-center gap-2 mb-3 px-1">
+              <h2 class="font-extrabold text-stone-900 text-lg tracking-tight">${cat.name}</h2>
+              <span class="text-[11px] font-semibold bg-stone-200 text-stone-600 px-2 py-0.5 rounded-full">${matchedItems.length}</span>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        `;
+
+        matchedItems.forEach(item => {
+          const isMultiVol = Array.isArray(item.vol);
+          const currentVol = selectedVolumes[item.id] || (isMultiVol ? item.vol[0] : item.vol);
+          const currentPrice = item.prices[currentVol] || Object.values(item.prices)[0];
+
+          let displayName = item.name;
+          if (searchQuery.length > 0) {
+            const regex = new RegExp(`(${searchQuery})`, 'gi');
+            displayName = item.name.replace(regex, '<span class="text-brand-teal font-extrabold underline decoration-brand-teal/40">$1</span>');
+          }
+
+          html += `
+            <div 
+              onclick="navigateToItem('${item.id}')"
+              class="cursor-pointer bg-white rounded-2xl p-4 border border-stone-200/80 hover:border-brand-teal transition-all shadow-xs hover:shadow-md flex flex-col justify-between group"
+            >
+              <div>
+                <div class="flex items-start justify-between gap-2 mb-1">
+                  <h3 class="font-bold text-stone-900 text-sm leading-snug group-hover:text-brand-darkteal transition-colors flex items-center gap-1.5">
+                    ${displayName}
+                    <i data-lucide="chevron-right" class="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 transition-opacity text-brand-teal"></i>
+                  </h3>
+                  ${item.badge ? `
+                    <span class="shrink-0 text-[10px] font-bold px-2 py-0.5 rounded-full ${item.badge === 'Хит' ? 'bg-amber-100 text-amber-700' : 'bg-teal-50 text-brand-darkteal border border-teal-200'}">
+                      ${item.badge}
+                    </span>
+                  ` : ''}
+                </div>
+                <p class="text-xs text-stone-500 leading-relaxed line-clamp-2">${item.desc}</p>
+              </div>
+
+              <div class="mt-3 pt-3 border-t border-stone-100 flex items-center justify-between" onclick="event.stopPropagation()">
+                ${isMultiVol ? `
+                  <div class="flex items-center gap-1 bg-stone-100 p-0.5 rounded-lg text-[11px]">
+                    ${item.vol.map(v => `
+                      <button 
+                        type="button" 
+                        data-item-id="${item.id}"
+                        data-vol="${v}"
+                        class="vol-btn px-2 py-0.5 rounded-md font-semibold transition-all ${v === currentVol ? 'bg-white shadow-xs text-stone-900 font-bold' : 'text-stone-500 hover:text-stone-800'}"
+                      >
+                        ${v}
+                      </button>
+                    `).join('')}
+                  </div>
+                ` : `
+                  <span class="text-[11px] font-medium text-stone-400">${item.vol}</span>
+                `}
+
+                <div class="text-right">
+                  <span class="font-black text-brand-darkteal text-base">${currentPrice.toLocaleString()} ₸</span>
+                </div>
+              </div>
+            </div>
+          `;
+        });
+
+        html += `
+            </div>
+          </div>
+        `;
+      });
+
+      if (totalFound === 0) {
+        html = `
+          <div class="text-center py-16 px-4">
+            <div class="w-16 h-16 bg-stone-100 text-stone-400 rounded-full flex items-center justify-center mx-auto mb-3">
+              <i data-lucide="search-x" class="w-8 h-8"></i>
+            </div>
+            <h3 class="font-bold text-base text-stone-800">Ничего не найдено</h3>
+            <p class="text-xs text-stone-500 mt-1 max-w-xs mx-auto">Попробуйте ввести другое слово или букву.</p>
+          </div>
+        `;
+      }
+
+      container.innerHTML = html;
+
+      container.querySelectorAll('.vol-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const itemId = e.currentTarget.getAttribute('data-item-id');
+          const vol = e.currentTarget.getAttribute('data-vol');
+          selectedVolumes[itemId] = vol;
+          renderMenu();
+        });
+      });
+
+      lucide.createIcons();
+    }
+
+    function openQrModal() {
+      const modal = document.getElementById('qrModal');
+      const qrContainer = document.getElementById("qrcode");
+      qrContainer.innerHTML = "";
+      new QRCode(qrContainer, {
+        text: "https://coffeday-omega.vercel.app/",
+        width: 170,
+        height: 170,
+        colorDark: "#0e4e52",
+        colorLight: "#FAF7F2",
+        correctLevel: QRCode.CorrectLevel.H
+      });
+      modal.classList.remove('hidden');
+      lucide.createIcons();
+    }
+
+    function closeQrModal() {
+      document.getElementById('qrModal').classList.add('hidden');
+    }
+
+    window.addEventListener('DOMContentLoaded', init);
+  </script>
+</body>
+</html>
