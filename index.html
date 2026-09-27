@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>COFFEEDAY | Электронное Меню & Оплата</title>
+  <title>COFFEEDAY | Электронное Меню & Заказ</title>
   
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -28,8 +28,7 @@
               cream: '#FAF7F2',
               card: '#FFFFFF',
               dark: '#1A1816',
-              gold: '#D97706',
-              kaspi: '#F14635'
+              gold: '#D97706'
             }
           },
           fontFamily: {
@@ -114,7 +113,7 @@
             <span>Every Day Good Mood</span>
           </div>
           <h1 class="text-2xl sm:text-3xl font-black tracking-tight mb-1">Меню Кофейни</h1>
-          <p class="text-xs sm:text-sm text-stone-200 max-w-md">Быстрая оплата в приложении Kaspi и моментальный заказ прямо к столику!</p>
+          <p class="text-xs sm:text-sm text-stone-200 max-w-md">Выберите напиток, оформите заказ в WhatsApp и покажите чек баристе на кассе!</p>
           
           <div class="mt-4 flex flex-wrap gap-2 text-[11px] text-stone-300">
             <div class="bg-black/20 backdrop-blur-md px-2.5 py-1 rounded-lg border border-white/10">
@@ -154,7 +153,7 @@
           <i data-lucide="map-pin" class="w-4 h-4"></i> 2GIS Карта
         </a>
         <a href="https://wa.me/77772512065" target="_blank" rel="noopener noreferrer" class="px-4 py-2 rounded-xl bg-stone-100 hover:bg-emerald-50 text-stone-700 hover:text-emerald-600 text-xs font-semibold flex items-center gap-2 transition-colors">
-          <i data-lucide="message-circle" class="w-4 h-4"></i> WhatsApp
+          <i data-lucide="message-circle" class="w-4 h-4"></i> WhatsApp (+7 777 251 20 65)
         </a>
       </div>
 
@@ -183,7 +182,7 @@
     </div>
   </div>
 
-  <!-- ORDER & KASPI DIRECT MODAL -->
+  <!-- ORDER MODAL DIALOG -->
   <div id="orderModal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
     <div class="bg-white rounded-3xl p-6 max-w-sm w-full shadow-2xl relative">
       <button onclick="closeOrderModal()" class="absolute right-4 top-4 text-stone-400 hover:text-stone-600">
@@ -191,24 +190,23 @@
       </button>
 
       <div class="flex items-center gap-3 mb-4">
-        <div class="w-11 h-11 bg-red-50 text-red-600 rounded-2xl flex items-center justify-center font-black text-xl">
-          ₸
+        <div class="w-11 h-11 bg-teal-50 text-brand-darkteal rounded-2xl flex items-center justify-center">
+          <i data-lucide="coffee" class="w-6 h-6"></i>
         </div>
         <div>
-          <h3 class="font-black text-base text-stone-900">Оплата через Kaspi</h3>
+          <h3 class="font-black text-base text-stone-900">Оформление заказа</h3>
           <p class="text-xs text-stone-500" id="orderModalItemTitle">Напиток</p>
         </div>
       </div>
 
-      <!-- ФОРМА ДО ОПЛАТЫ -->
-      <form id="orderForm" onsubmit="handlePayAndForward(event)" class="space-y-3.5">
+      <form id="orderForm" onsubmit="submitOrder(event)" class="space-y-3.5">
         <div>
           <label class="block text-xs font-bold text-stone-700 mb-1">Ваше имя *</label>
           <input 
             type="text" 
             id="orderCustomerName" 
             placeholder="Введите ваше имя" 
-            class="w-full bg-stone-50 border border-stone-200 rounded-xl px-3 py-2 text-xs focus:ring-2 focus:ring-red-500/30 focus:outline-none"
+            class="w-full bg-stone-50 border border-stone-200 rounded-xl px-3 py-2 text-xs focus:ring-2 focus:ring-brand-teal/40 focus:outline-none"
             required
           />
         </div>
@@ -216,80 +214,66 @@
         <div>
           <label class="block text-xs font-bold text-stone-700 mb-1">Где вы находитесь? *</label>
           <div class="grid grid-cols-2 gap-2 mb-1.5">
-            <button type="button" id="btnPlaceHall" onclick="setPlaceType('hall')" class="py-1.5 text-xs font-bold rounded-xl border border-red-500 bg-red-50 text-red-700">В зале</button>
+            <button type="button" id="btnPlaceHall" onclick="setPlaceType('hall')" class="py-1.5 text-xs font-bold rounded-xl border border-brand-teal bg-teal-50 text-brand-darkteal">В зале</button>
             <button type="button" id="btnPlaceTogo" onclick="setPlaceType('togo')" class="py-1.5 text-xs font-bold rounded-xl border border-stone-200 bg-white text-stone-600">С собой</button>
           </div>
           <input 
             type="text" 
             id="orderTableNumber" 
             placeholder="Номер столика (например: Столик 3)" 
-            class="w-full bg-stone-50 border border-stone-200 rounded-xl px-3 py-2 text-xs focus:ring-2 focus:ring-red-500/30 focus:outline-none"
+            class="w-full bg-stone-50 border border-stone-200 rounded-xl px-3 py-2 text-xs focus:ring-2 focus:ring-brand-teal/40 focus:outline-none"
             required
           />
         </div>
 
         <div>
-          <label class="block text-xs font-bold text-stone-700 mb-1">Пожелания (необязательно)</label>
+          <label class="block text-xs font-bold text-stone-700 mb-1">Пожелания к заказу</label>
           <input 
             type="text" 
             id="orderComment" 
             placeholder="Без сахара / сироп / потеплее" 
-            class="w-full bg-stone-50 border border-stone-200 rounded-xl px-3 py-2 text-xs focus:ring-2 focus:ring-red-500/30 focus:outline-none"
+            class="w-full bg-stone-50 border border-stone-200 rounded-xl px-3 py-2 text-xs focus:ring-2 focus:ring-brand-teal/40 focus:outline-none"
           />
         </div>
 
-        <!-- Подсказка с номером для перевода -->
-        <div class="p-3 bg-red-50/70 border border-red-200/80 rounded-2xl space-y-1.5">
+        <!-- Подсказка с контактом и суммой -->
+        <div class="p-3 bg-stone-50 border border-stone-200/80 rounded-2xl space-y-1.5">
           <div class="flex items-center justify-between text-xs">
-            <span class="text-stone-600 font-bold">Номер для Kaspi:</span>
+            <span class="text-stone-600 font-bold">Номер заказа / кассы:</span>
             <span class="text-stone-900 font-extrabold">+7 777 251 20 65</span>
           </div>
-          <div class="flex items-center justify-between text-xs pt-1 border-t border-red-100">
-            <span class="text-stone-600 font-bold">Сумма перевода:</span>
-            <span class="text-red-600 font-black text-base" id="orderModalPrice">0 ₸</span>
+          <div class="flex items-center justify-between text-xs pt-1 border-t border-stone-200">
+            <span class="text-stone-600 font-bold">Сумма заказа:</span>
+            <span class="text-brand-darkteal font-black text-base" id="orderModalPrice">0 ₸</span>
           </div>
         </div>
 
-        <!-- КНОПКА ОПЛАТЫ -->
+        <!-- БЛОК-НАПОМИНАНИЕ: ПОКАЗАТЬ ЧЕК НА КАССЕ -->
+        <div class="p-3 bg-amber-50 border border-amber-200 rounded-2xl flex items-start gap-2.5 text-amber-950">
+          <i data-lucide="receipt" class="w-4 h-4 text-amber-600 shrink-0 mt-0.5"></i>
+          <p class="text-[11px] leading-snug font-medium">
+            <b>Важно:</b> после отправки заказа покажите сформированный чек в WhatsApp баристе на кассе для подтверждения.
+          </p>
+        </div>
+
+        <!-- КНОПКА СДЕЛАТЬ ЗАКАЗ -->
         <button 
           type="submit" 
-          id="btnPayKaspi"
-          class="w-full py-3.5 px-4 bg-red-600 hover:bg-red-700 text-white rounded-xl text-xs font-black transition-all shadow-md flex items-center justify-center gap-2"
+          id="submitOrderBtn"
+          class="w-full py-3.5 px-4 bg-brand-darkteal hover:bg-brand-teal text-white rounded-xl text-xs font-black transition-all shadow-md flex items-center justify-center gap-2"
         >
-          <i data-lucide="smartphone" class="w-4 h-4"></i>
-          Оплатить перевод в Kaspi
+          <i data-lucide="send" class="w-4 h-4"></i>
+          Сделать заказ
         </button>
 
-        <p class="text-[10px] text-center text-stone-400 leading-tight">Номер +7 777 251 20 65 скопируется автоматически при нажатии.</p>
+        <p class="text-[10px] text-center text-stone-400 leading-tight">Заказ откроется в WhatsApp по номеру +7 777 251 20 65</p>
       </form>
-
-      <!-- БЛОК ПОСЛЕ НАЖАТИЯ ОПЛАТЫ (ОТПРАВКА В WHATSAPP) -->
-      <div id="afterPayBlock" class="hidden text-center space-y-3 pt-1">
-        <div class="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-full flex items-center justify-center mx-auto">
-          <i data-lucide="check-circle-2" class="w-7 h-7"></i>
-        </div>
-        <div>
-          <h4 class="font-bold text-sm text-stone-900">Завершили перевод в Kaspi?</h4>
-          <p class="text-xs text-stone-500 mt-0.5">Нажмите кнопку ниже, чтобы отправить чек и имя баристе на +7 777 251 20 65</p>
-        </div>
-        
-        <button 
-          type="button" 
-          onclick="sendDirectWhatsApp()"
-          class="w-full py-3.5 px-4 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-black transition-all shadow-md flex items-center justify-center gap-2"
-        >
-          <i data-lucide="message-circle" class="w-4 h-4"></i>
-          Отправить чек в WhatsApp баристе (+7 777 251 20 65)
-        </button>
-      </div>
-
     </div>
   </div>
 
   <script>
-    // ЕДИНЫЙ НОМЕР ДЛЯ WHATSAPP И KASPI
+    // ЕДИНЫЙ РАБОЧИЙ НОМЕР КОФЕЙНИ
     const COFFEE_WHATSAPP_PHONE = "77772512065";
-    const KASPI_PHONE_NUMBER = "77772512065";
 
     const menuData = [
       {
@@ -619,7 +603,6 @@
     const selectedVolumes = {};
     let activeOrderItem = null;
     let placeType = 'hall';
-    let preparedWhatsAppUrl = '';
 
     function normalizeText(str) {
       if (!str) return '';
@@ -774,14 +757,14 @@
               `}
             </div>
 
-            <!-- КНОПКА ОПЛАТЫ KASPI -->
+            <!-- КНОПКА СДЕЛАТЬ ЗАКАЗ -->
             <button 
               type="button"
               onclick="openOrderModal('${item.id}')"
-              class="w-full py-4 px-6 rounded-2xl bg-red-600 hover:bg-red-700 text-white font-black text-sm transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2"
+              class="w-full py-4 px-6 rounded-2xl bg-brand-darkteal hover:bg-brand-teal text-white font-black text-sm transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2"
             >
-              <i data-lucide="credit-card" class="w-5 h-5"></i>
-              <span>Оплатить через Kaspi (${currentPrice.toLocaleString()} ₸)</span>
+              <i data-lucide="shopping-bag" class="w-5 h-5"></i>
+              <span>Сделать заказ (${currentPrice.toLocaleString()} ₸)</span>
             </button>
 
             <div class="flex items-center gap-3 text-xs text-stone-600 bg-stone-50 p-3 rounded-xl border border-stone-200/60">
@@ -845,7 +828,7 @@
 
       const orderBtnSpan = document.querySelector('#detailContent button[onclick*="openOrderModal"] span');
       if (orderBtnSpan) {
-        orderBtnSpan.innerText = `Оплатить через Kaspi (${price.toLocaleString()} ₸)`;
+        orderBtnSpan.innerText = `Сделать заказ (${price.toLocaleString()} ₸)`;
       }
     }
 
@@ -856,13 +839,13 @@
       const tableInput = document.getElementById('orderTableNumber');
 
       if (type === 'hall') {
-        btnHall.className = 'py-1.5 text-xs font-bold rounded-xl border border-red-500 bg-red-50 text-red-700';
+        btnHall.className = 'py-1.5 text-xs font-bold rounded-xl border border-brand-teal bg-teal-50 text-brand-darkteal';
         btnTogo.className = 'py-1.5 text-xs font-bold rounded-xl border border-stone-200 bg-white text-stone-600';
         tableInput.placeholder = 'Номер столика (например: Столик 3)';
         tableInput.value = '';
         tableInput.required = true;
       } else {
-        btnTogo.className = 'py-1.5 text-xs font-bold rounded-xl border border-red-500 bg-red-50 text-red-700';
+        btnTogo.className = 'py-1.5 text-xs font-bold rounded-xl border border-brand-teal bg-teal-50 text-brand-darkteal';
         btnHall.className = 'py-1.5 text-xs font-bold rounded-xl border border-stone-200 bg-white text-stone-600';
         tableInput.placeholder = 'Имя для выдачи с собой';
         tableInput.value = 'С собой';
@@ -881,9 +864,6 @@
 
       document.getElementById('orderModalItemTitle').innerText = `${activeOrderItem.name} (${currentVol})`;
       document.getElementById('orderModalPrice').innerText = `${currentPrice.toLocaleString()} ₸`;
-      
-      document.getElementById('orderForm').classList.remove('hidden');
-      document.getElementById('afterPayBlock').classList.add('hidden');
 
       document.getElementById('orderModal').classList.remove('hidden');
       lucide.createIcons();
@@ -893,7 +873,7 @@
       document.getElementById('orderModal').classList.add('hidden');
     }
 
-    function handlePayAndForward(e) {
+    function submitOrder(e) {
       e.preventDefault();
       if (!activeOrderItem) return;
 
@@ -906,42 +886,17 @@
       const currentPrice = activeOrderItem.prices[currentVol] || Object.values(activeOrderItem.prices)[0];
 
       // Сообщение для баристы в WhatsApp
-      const message = `Здравствуйте! Перевод Kaspi отправлен:\n` +
+      const message = `Здравствуйте! Новый заказ в кофейне COFFEEDAY:\n` +
         `👤 Клиент: ${customerName}\n` +
-        `☕️ Заказ: ${activeOrderItem.name} (${currentVol})\n` +
-        `💳 Сумма: ${currentPrice.toLocaleString()} ₸\n` +
-        `📍 Столик/Формат: ${place}\n` +
-        `📝 Пожелания: ${comment}`;
+        `☕️ Позиция: ${activeOrderItem.name} (${currentVol})\n` +
+        `💵 Сумма к оплате: ${currentPrice.toLocaleString()} ₸\n` +
+        `📍 Локация: ${place}\n` +
+        `📝 Пожелания: ${comment}\n\n` +
+        `🧾 Чек будет показан на кассе при получении!`;
 
-      preparedWhatsAppUrl = `https://wa.me/${COFFEE_WHATSAPP_PHONE}?text=${encodeURIComponent(message)}`;
-
-      // Автоматическое копирование номера в буфер обмена телефона
-      if (navigator.clipboard) {
-        navigator.clipboard.writeText(KASPI_PHONE_NUMBER);
-      }
-
-      // Системный вызов приложения Kaspi для мобильных устройств
-      const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-      if (isMobile) {
-        window.location.href = "kaspi://";
-        setTimeout(() => {
-          window.location.href = "https://kaspi.kz/pay";
-        }, 1200);
-      } else {
-        window.open("https://kaspi.kz/pay", "_blank");
-      }
-
-      // Переключаем интерфейс на кнопку перехода в WhatsApp
-      document.getElementById('orderForm').classList.add('hidden');
-      document.getElementById('afterPayBlock').classList.remove('hidden');
-      lucide.createIcons();
-    }
-
-    function sendDirectWhatsApp() {
-      if (preparedWhatsAppUrl) {
-        window.open(preparedWhatsAppUrl, '_blank');
-        closeOrderModal();
-      }
+      const whatsappUrl = `https://wa.me/${COFFEE_WHATSAPP_PHONE}?text=${encodeURIComponent(message)}`;
+      window.open(whatsappUrl, '_blank');
+      closeOrderModal();
     }
 
     function setCategory(catId) {
