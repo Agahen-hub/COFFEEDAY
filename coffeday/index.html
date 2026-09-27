@@ -257,7 +257,7 @@
           class="w-full py-3.5 px-4 bg-red-600 hover:bg-red-700 text-white rounded-xl text-xs font-black transition-all shadow-md flex items-center justify-center gap-2"
         >
           <i data-lucide="smartphone" class="w-4 h-4"></i>
-          Открыть Kaspi на телефоне
+          Оплатить перевод в Kaspi
         </button>
 
         <p class="text-[10px] text-center text-stone-400 leading-tight">Номер +7 777 251 20 65 скопируется автоматически при нажатии.</p>
@@ -270,7 +270,7 @@
         </div>
         <div>
           <h4 class="font-bold text-sm text-stone-900">Завершили перевод в Kaspi?</h4>
-          <p class="text-xs text-stone-500 mt-0.5">Нажмите кнопку ниже, чтобы отправить чек и имя баристе в WhatsApp</p>
+          <p class="text-xs text-stone-500 mt-0.5">Нажмите кнопку ниже, чтобы отправить чек и имя баристе на +7 777 251 20 65</p>
         </div>
         
         <button 
@@ -279,7 +279,7 @@
           class="w-full py-3.5 px-4 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-black transition-all shadow-md flex items-center justify-center gap-2"
         >
           <i data-lucide="message-circle" class="w-4 h-4"></i>
-          Отправить чек в WhatsApp баристе
+          Отправить чек в WhatsApp баристе (+7 777 251 20 65)
         </button>
       </div>
 
@@ -287,6 +287,7 @@
   </div>
 
   <script>
+    // ЕДИНЫЙ НОМЕР ДЛЯ WHATSAPP И KASPI
     const COFFEE_WHATSAPP_PHONE = "77772512065";
     const KASPI_PHONE_NUMBER = "77772512065";
 
@@ -919,13 +920,11 @@
         navigator.clipboard.writeText(KASPI_PHONE_NUMBER);
       }
 
-      // Открытие приложения Kaspi на смартфоне
+      // Системный вызов приложения Kaspi для мобильных устройств
       const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
       if (isMobile) {
-        // Системный диплинк Kaspi для мобильных устройств
         window.location.href = "kaspi://";
         setTimeout(() => {
-          // Запасной переход, если приложение заблокировало прямой протокол
           window.location.href = "https://kaspi.kz/pay";
         }, 1200);
       } else {
