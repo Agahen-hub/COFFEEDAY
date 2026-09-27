@@ -114,14 +114,14 @@
             <span>Every Day Good Mood</span>
           </div>
           <h1 class="text-2xl sm:text-3xl font-black tracking-tight mb-1">Меню Кофейни</h1>
-          <p class="text-xs sm:text-sm text-stone-200 max-w-md">Быстрая оплата в приложении Kaspi и мгновенное уведомление баристе в WhatsApp!</p>
+          <p class="text-xs sm:text-sm text-stone-200 max-w-md">Быстрая оплата в приложении Kaspi и моментальный заказ прямо к столику!</p>
           
           <div class="mt-4 flex flex-wrap gap-2 text-[11px] text-stone-300">
             <div class="bg-black/20 backdrop-blur-md px-2.5 py-1 rounded-lg border border-white/10">
-              ➕ Доп. шот эспрессо: <b class="text-white">390 ₸</b>
+              ➕ Доп. шот эспрессо: <b class="text-white">390 ₸</b>[cite: 1]
             </div>
             <div class="bg-black/20 backdrop-blur-md px-2.5 py-1 rounded-lg border border-white/10">
-              🍯 Сиропы (20 мл): <b class="text-white">150 ₸</b>
+              🍯 Сиропы (20 мл): <b class="text-white">150 ₸</b>[cite: 3]
             </div>
           </div>
         </div>
@@ -153,7 +153,7 @@
         <a href="https://2gis.kz/pavlodar/search/coffeeday" target="_blank" rel="noopener noreferrer" class="px-4 py-2 rounded-xl bg-stone-100 hover:bg-emerald-50 text-stone-700 hover:text-emerald-600 text-xs font-semibold flex items-center gap-2 transition-colors">
           <i data-lucide="map-pin" class="w-4 h-4"></i> 2GIS Карта
         </a>
-        <a href="https://wa.me/77762438430" target="_blank" rel="noopener noreferrer" class="px-4 py-2 rounded-xl bg-stone-100 hover:bg-emerald-50 text-stone-700 hover:text-emerald-600 text-xs font-semibold flex items-center gap-2 transition-colors">
+        <a href="https://wa.me/77772512065" target="_blank" rel="noopener noreferrer" class="px-4 py-2 rounded-xl bg-stone-100 hover:bg-emerald-50 text-stone-700 hover:text-emerald-600 text-xs font-semibold flex items-center gap-2 transition-colors">
           <i data-lucide="message-circle" class="w-4 h-4"></i> WhatsApp
         </a>
       </div>
@@ -242,10 +242,10 @@
         <div class="p-3 bg-red-50/70 border border-red-200/80 rounded-2xl space-y-1.5">
           <div class="flex items-center justify-between text-xs">
             <span class="text-stone-600 font-bold">Номер для Kaspi:</span>
-            <span class="text-stone-900 font-extrabold">+7 776 243 84 30</span>
+            <span class="text-stone-900 font-extrabold">+7 777 251 20 65</span>
           </div>
           <div class="flex items-center justify-between text-xs pt-1 border-t border-red-100">
-            <span class="text-stone-600 font-bold">Сумма к оплате:</span>
+            <span class="text-stone-600 font-bold">Сумма перевода:</span>
             <span class="text-red-600 font-black text-base" id="orderModalPrice">0 ₸</span>
           </div>
         </div>
@@ -256,11 +256,11 @@
           id="btnPayKaspi"
           class="w-full py-3.5 px-4 bg-red-600 hover:bg-red-700 text-white rounded-xl text-xs font-black transition-all shadow-md flex items-center justify-center gap-2"
         >
-          <i data-lucide="credit-card" class="w-4 h-4"></i>
-          Оплатить в Kaspi (скопировать сумму и открыть)
+          <i data-lucide="smartphone" class="w-4 h-4"></i>
+          Оплатить перевод в Kaspi
         </button>
 
-        <p class="text-[10px] text-center text-stone-400 leading-tight">Сумма и номер скопируются автоматически при нажатии.</p>
+        <p class="text-[10px] text-center text-stone-400 leading-tight">Номер +7 777 251 20 65 скопируется автоматически при нажатии.</p>
       </form>
 
       <!-- БЛОК ПОСЛЕ НАЖАТИЯ ОПЛАТЫ (ОТПРАВКА В WHATSAPP) -->
@@ -270,7 +270,7 @@
         </div>
         <div>
           <h4 class="font-bold text-sm text-stone-900">Завершили перевод в Kaspi?</h4>
-          <p class="text-xs text-stone-500 mt-0.5">Нажмите кнопку ниже, чтобы отправить чек и имя баристе в WhatsApp</p>
+          <p class="text-xs text-stone-500 mt-0.5">Нажмите кнопку ниже, чтобы отправить чек и имя баристе на +7 777 251 20 65</p>
         </div>
         
         <button 
@@ -279,7 +279,7 @@
           class="w-full py-3.5 px-4 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-black transition-all shadow-md flex items-center justify-center gap-2"
         >
           <i data-lucide="message-circle" class="w-4 h-4"></i>
-          Отправить чек в WhatsApp баристе
+          Отправить чек в WhatsApp баристе (+7 777 251 20 65)
         </button>
       </div>
 
@@ -287,8 +287,9 @@
   </div>
 
   <script>
-    const COFFEE_WHATSAPP_PHONE = "77762438430";
-    const KASPI_PHONE_NUMBER = "77762438430";
+    // ЕДИНЫЙ НОМЕР ДЛЯ WHATSAPP И KASPI
+    const COFFEE_WHATSAPP_PHONE = "77772512065";
+    const KASPI_PHONE_NUMBER = "77772512065";
 
     const menuData = [
       {
@@ -312,7 +313,7 @@
             name: "Декаф Кофе", 
             desc: "Кофе без кофеина для легкого вечера", 
             vol: "Стандарт", 
-            prices: { "Стандарт": 490 },
+            prices: { "Стандарт": 490 }, 
             image: "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=900&auto=format&fit=crop&q=80",
             composition: ["Зерна спешелти арабики, декофеинизированные водным методом Swiss Water", "Горячая очищенная вода"],
             grams: "Объем: ~150-200 мл",
@@ -323,7 +324,7 @@
             name: "Американо", 
             desc: "Двойное эспрессо, горячая вода, молоко по выбору", 
             vol: ["350 мл", "450 мл"], 
-            prices: { "350 мл": 990, "450 мл": 1290 },
+            prices: { "350 мл": 990, "450 мл": 1290 }, 
             image: "https://images.unsplash.com/photo-1551030173-122aabc4489c?w=900&auto=format&fit=crop&q=80",
             composition: ["Двойной шот эспрессо (Doppio)", "Горячая фильтрованная вода оптимальной минерализации", "Опционально: теплое или холодное молоко"],
             grams: "Объем: 350 мл / 450 мл",
@@ -334,7 +335,7 @@
             name: "Флэт Уайт", 
             desc: "Двойной эспрессо с шелковистым молоком", 
             vol: "250 мл", 
-            prices: { "250 мл": 1190 },
+            prices: { "250 мл": 1190 }, 
             image: "https://images.unsplash.com/photo-1577968897966-3d4325b36b61?w=900&auto=format&fit=crop&q=80",
             composition: ["Двойной шот эспрессо", "Взбитое микроструктурированное молоко без толстой пены"],
             grams: "Объем: 250 мл (баланс в пользу насыщенного кофейного вкуса)",
@@ -357,7 +358,7 @@
             name: "Латте", 
             desc: "Одинарный эспрессо, большое количество взбитого молока", 
             vol: ["350 мл", "450 мл"], 
-            prices: { "350 мл": 1190, "450 мл": 1290 },
+            prices: { "350 мл": 1190, "450 мл": 1290 }, 
             image: "https://images.unsplash.com/photo-1570968915860-54d5c301fa9f?w=900&auto=format&fit=crop&q=80",
             composition: ["Шот ароматного одинарного эспрессо", "Большая порция деликатно прогретого взбитого молока"],
             grams: "Объем: 350 мл / 450 мл",
@@ -380,7 +381,7 @@
             name: "Мокко / Моккочино", 
             desc: "Двойное эспрессо, молоко, шоколад", 
             vol: ["350 мл", "450 мл"], 
-            prices: { "350 мл": 1390, "450 мл": 1490 },
+            prices: { "350 мл": 1390, "450 мл": 1490 }, 
             image: "https://images.unsplash.com/photo-1578314675249-a6910f80cc4e?w=900&auto=format&fit=crop&q=80",
             composition: ["Двойное эспрессо", "Бельгийский шоколад", "Взбитое цельное молоко"],
             grams: "Объем: 350 мл / 450 мл",
@@ -391,7 +392,7 @@
             name: "Кофе по-вьетнамски", 
             desc: "Эспрессо, сладкое сгущенное молоко, взбитое молоко", 
             vol: ["350 мл", "450 мл"], 
-            prices: { "350 мл": 1390, "450 мл": 1490 },
+            prices: { "350 мл": 1390, "450 мл": 1490 }, 
             image: "https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?w=900&auto=format&fit=crop&q=80",
             composition: ["Крепкий насыщенный эспрессо", "Сгущенное цельное молоко", "Взбитое молоко"],
             grams: "Объем: 350 мл / 450 мл",
@@ -432,7 +433,7 @@
             name: "Раф с халвой", 
             desc: "Эспрессо, нежные сливки, натуральная халва", 
             vol: ["350 мл", "450 мл"], 
-            prices: { "350 мл": 1590, "450 мл": 1690 },
+            prices: { "350 мл": 1590, "450 мл": 1690 }, 
             image: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=900&auto=format&fit=crop&q=80",
             composition: ["Эспрессо", "Сливки 10%", "Натуральная халва тонкого помола"],
             grams: "Объем: 350 мл / 450 мл",
@@ -449,7 +450,7 @@
             name: "Айс Американо", 
             desc: "Эспрессо, лед, фильтрованная вода", 
             vol: "400 мл", 
-            prices: { "400 мл": 1290 },
+            prices: { "400 мл": 1290 }, 
             image: "https://images.unsplash.com/photo-1517701604599-bb29b565090c?w=900&auto=format&fit=crop&q=80",
             composition: ["Двойной эспрессо", "Кубиковый чистый лед", "Холодная артезианская вода"],
             grams: "Объем: 400 мл",
@@ -460,7 +461,7 @@
             name: "Айс Латте", 
             desc: "Эспрессо, кубики льда, охлажденное молоко", 
             vol: ["400 мл", "500 мл"], 
-            prices: { "400 мл": 1290, "500 мл": 1390 },
+            prices: { "400 мл": 1290, "500 мл": 1390 }, 
             image: "https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?w=900&auto=format&fit=crop&q=80",
             composition: ["Эспрессо", "Охлажденное цельное молоко", "Пищевой лед"],
             grams: "Объем: 400 мл / 500 мл",
@@ -471,7 +472,7 @@
             name: "Бамбл Сок", 
             desc: "Эспрессо, кубики льда и апельсиновый сок", 
             vol: "400 мл", 
-            prices: { "400 мл": 1690 },
+            prices: { "400 мл": 1690 }, 
             image: "https://images.unsplash.com/photo-1551024709-8f23befc6f87?w=900&auto=format&fit=crop&q=80",
             composition: ["Шот эспрессо", "Натуральный апельсиновый сок", "Карамельный сироп", "Лед"],
             grams: "Объем: 400 мл",
@@ -494,7 +495,7 @@
             name: "Эспрессо Тоник", 
             desc: "Двойной эспрессо, освежающий тоник, долька цитруса, лед", 
             vol: "400 мл", 
-            prices: { "400 мл": 1790 },
+            prices: { "400 мл": 1790 }, 
             image: "https://images.unsplash.com/photo-1556881286-fc6915169721?w=900&auto=format&fit=crop&q=80",
             composition: ["Двойной эспрессо", "Игристый тоник с хинином", "Долька лайма или апельсина", "Лед"],
             grams: "Объем: 400 мл",
@@ -523,7 +524,7 @@
             name: "Марокканский чай", 
             desc: "Чай, мята, гвоздика, корица, бадьян, лимон, апельсин", 
             vol: ["350 мл", "450 мл"], 
-            prices: { "350 мл": 1090, "450 мл": 1290 },
+            prices: { "350 мл": 1090, "450 мл": 1290 }, 
             image: "https://images.unsplash.com/photo-1597481499750-3e6b22637e12?w=900&auto=format&fit=crop&q=80",
             composition: ["Зеленый чай", "Мята", "Пряности: палочка корицы, звездочка бадьяна, гвоздика", "Цитрусы"],
             grams: "Объем: 350 мл / 450 мл",
@@ -534,7 +535,7 @@
             name: "Облепиховый чай", 
             desc: "Облепиховый соус, апельсиновый сок, апельсин, облепиха", 
             vol: ["350 мл", "450 мл"], 
-            prices: { "350 мл": 1090, "450 мл": 1290 },
+            prices: { "350 мл": 1090, "450 мл": 1290 }, 
             image: "https://images.unsplash.com/photo-1544787219-7f47ccb76574?w=900&auto=format&fit=crop&q=80",
             composition: ["Натуральный облепиховый соус", "Цельные ягоды алтайской облепихи", "Апельсиновый сок", "Апельсин"],
             grams: "Объем: 350 мл / 450 мл",
@@ -545,7 +546,7 @@
             name: "Какао", 
             desc: "Натуральное какао и теплое взбитое молоко", 
             vol: ["350 мл", "450 мл"], 
-            prices: { "350 мл": 1190, "450 мл": 1390 },
+            prices: { "350 мл": 1190, "450 мл": 1390 }, 
             image: "https://images.unsplash.com/photo-1542990253-0d0f5be5f0ed?w=900&auto=format&fit=crop&q=80",
             composition: ["Натуральный порошок какао-бобов", "Цельное взбитое молоко", "Тростниковый сахар"],
             grams: "Объем: 350 мл / 450 мл",
@@ -574,7 +575,7 @@
             name: "Смузи Ягодно-Банановый", 
             desc: "Банан, черная смородина, мороженое, нат. сок", 
             vol: ["400 мл", "500 мл"], 
-            prices: { "400 мл": 1690, "500 мл": 1790 },
+            prices: { "400 мл": 1690, "500 мл": 1790 }, 
             image: "https://images.unsplash.com/photo-1553530666-ba11a7da3888?w=900&auto=format&fit=crop&q=80",
             composition: ["Спелый банан", "Ягоды черной смородины", "Пломбирная основа", "Натуральный сок"],
             grams: "Объем: 400 мл / 500 мл",
@@ -591,7 +592,7 @@
             name: "Круассан классический", 
             desc: "Хрустящее слоеное тесто на сливочном масле", 
             vol: "1 шт", 
-            prices: { "1 шт": 750 },
+            prices: { "1 шт": 750 }, 
             image: "https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=900&auto=format&fit=crop&q=80",
             composition: ["Слоеное тесто французской рецептуры", "Натуральное сливочное масло 82.5%"],
             grams: "Вес: ~85 г",
@@ -773,7 +774,7 @@
               `}
             </div>
 
-            <!-- КНОПКА БЫСТРОЙ ОПЛАТЫ -->
+            <!-- КНОПКА ОПЛАТЫ KASPI -->
             <button 
               type="button"
               onclick="openOrderModal('${item.id}')"
@@ -904,27 +905,33 @@
       const currentVol = selectedVolumes[activeOrderItem.id] || (isMultiVol ? activeOrderItem.vol[0] : activeOrderItem.vol);
       const currentPrice = activeOrderItem.prices[currentVol] || Object.values(activeOrderItem.prices)[0];
 
-      const message = `Здравствуйте! Оплата через Kaspi отправлена:\n` +
-        `👤 Имя клиента: ${customerName}\n` +
+      // Сообщение для баристы в WhatsApp
+      const message = `Здравствуйте! Перевод Kaspi отправлен:\n` +
+        `👤 Клиент: ${customerName}\n` +
         `☕️ Заказ: ${activeOrderItem.name} (${currentVol})\n` +
         `💳 Сумма: ${currentPrice.toLocaleString()} ₸\n` +
-        `📍 Формат/Столик: ${place}\n` +
+        `📍 Столик/Формат: ${place}\n` +
         `📝 Пожелания: ${comment}`;
 
       preparedWhatsAppUrl = `https://wa.me/${COFFEE_WHATSAPP_PHONE}?text=${encodeURIComponent(message)}`;
 
-      // Копируем сумму и номер в буфер для удобства вставки в Kaspi
+      // Автоматическое копирование номера в буфер обмена телефона
       if (navigator.clipboard) {
-        navigator.clipboard.writeText(`${KASPI_PHONE_NUMBER} сумма ${currentPrice} тенге`);
+        navigator.clipboard.writeText(KASPI_PHONE_NUMBER);
       }
 
+      // Системный вызов приложения Kaspi для мобильных устройств
       const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
       if (isMobile) {
-        window.location.href = "kaspi://pay";
+        window.location.href = "kaspi://";
+        setTimeout(() => {
+          window.location.href = "https://kaspi.kz/pay";
+        }, 1200);
       } else {
         window.open("https://kaspi.kz/pay", "_blank");
       }
 
+      // Переключаем интерфейс на кнопку перехода в WhatsApp
       document.getElementById('orderForm').classList.add('hidden');
       document.getElementById('afterPayBlock').classList.remove('hidden');
       lucide.createIcons();
