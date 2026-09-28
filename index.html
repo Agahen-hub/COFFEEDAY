@@ -54,11 +54,15 @@
   <!-- TOP HEADER -->
   <header class="sticky top-0 z-40 glass-effect border-b border-stone-200/80 shadow-xs transition-all">
     <div class="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between gap-3">
-      <!-- Logo -->
-      <a href="#" onclick="navigateToList(); return false;" class="flex items-center gap-2 group">
-        <div class="w-10 h-10 rounded-2xl bg-brand-darkteal flex items-center justify-center text-white font-extrabold text-xl shadow-md group-hover:scale-105 transition-transform">
-          CD
-        </div>
+<!-- LOGO GROUP -->
+      <a href="#" onclick="navigateToList(); return false;" class="flex items-center gap-2.5 group">
+        <!-- Оригинальная аватарка кофейни -->
+        <img 
+          src="avatar.png" 
+          alt="COFFEEDAY Logo" 
+          class="w-10 h-10 rounded-2xl object-cover shadow-sm group-hover:scale-105 transition-transform shrink-0 border border-stone-100"
+          onerror="this.style.display='none'"
+        />
         <div>
           <div class="font-black text-lg tracking-wider text-stone-900 flex items-center gap-1">
             COFFEE<span class="text-brand-teal">DAY</span>
