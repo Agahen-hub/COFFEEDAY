@@ -56,16 +56,15 @@
   <header class="sticky top-0 z-40 glass-effect border-b border-stone-200/80 shadow-xs transition-all">
     <div class="max-w-4xl mx-auto px-4 py-2.5 flex items-center justify-between gap-3">
       
-      <!-- LOGO GROUP -->
+<!-- LOGO GROUP -->
       <a href="#" onclick="navigateToList(); return false;" class="flex items-center gap-2.5 group">
-        <!-- Аватарка кофейни с оригинальной буквой D -->
-        <div class="w-10 h-10 rounded-2xl bg-[#007A3D] flex items-center justify-center shadow-md group-hover:scale-105 transition-transform overflow-hidden p-1 shrink-0">
-          <svg viewBox="0 0 100 100" class="w-full h-full text-white fill-current">
-            <path d="M 22,18 L 52,18 C 76,18 88,32 88,50 C 88,68 76,82 52,82 L 22,82 Z" fill="#ffffff" />
-            <path d="M 20,28 C 42,32 46,45 36,49 C 48,47 52,43 54,39 C 55,44 48,48 40,50 C 48,52 55,56 54,61 C 52,57 48,53 36,51 C 46,55 42,68 20,72 C 34,68 36,58 31,54 C 27,51 22,50 20,50 C 22,50 27,49 31,46 C 36,42 34,32 20,28 Z" fill="#007A3D" />
-            <path d="M 54,50 L 70,50 L 62,43 Z M 70,50 L 62,57 Z" fill="#007A3D" />
-          </svg>
-        </div>
+        <!-- Оригинальная аватарка кофейни -->
+        <img 
+          src="avatar.png" 
+          alt="COFFEEDAY Logo" 
+          class="w-10 h-10 rounded-2xl object-cover shadow-sm group-hover:scale-105 transition-transform shrink-0 border border-stone-100"
+          onerror="this.style.display='none'"
+        />
 
         <!-- Название кофейни COFFEE DAY с орнаментной буквой D -->
         <div class="flex flex-col">
