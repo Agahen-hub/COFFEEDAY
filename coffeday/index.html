@@ -15,7 +15,7 @@
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <script>
     tailwind.config = {
@@ -25,7 +25,6 @@
             brand: {
               teal: '#008B8B',
               darkteal: '#0e4e52',
-              green: '#007A3D',
               cream: '#FAF7F2',
               card: '#FFFFFF',
               dark: '#1A1816',
@@ -44,7 +43,7 @@
     .no-scrollbar::-webkit-scrollbar { display: none; }
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     .glass-effect {
-      background: rgba(255, 255, 255, 0.94);
+      background: rgba(255, 255, 255, 0.92);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
     }
@@ -54,42 +53,24 @@
 
   <!-- TOP HEADER -->
   <header class="sticky top-0 z-40 glass-effect border-b border-stone-200/80 shadow-xs transition-all">
-    <div class="max-w-4xl mx-auto px-4 py-2.5 flex items-center justify-between gap-3">
-      
-      <!-- LOGO GROUP -->
-      <a href="#" onclick="navigateToList(); return false;" class="flex items-center gap-2.5 group">
-        <!-- Аватарка кофейни с оригинальной буквой D -->
-        <div class="w-10 h-10 rounded-2xl bg-[#007A3D] flex items-center justify-center shadow-md group-hover:scale-105 transition-transform overflow-hidden p-1 shrink-0">
-          <svg viewBox="0 0 100 100" class="w-full h-full text-white fill-current">
-            <path d="M 22,18 L 52,18 C 76,18 88,32 88,50 C 88,68 76,82 52,82 L 22,82 Z" fill="#ffffff" />
-            <path d="M 20,28 C 42,32 46,45 36,49 C 48,47 52,43 54,39 C 55,44 48,48 40,50 C 48,52 55,56 54,61 C 52,57 48,53 36,51 C 46,55 42,68 20,72 C 34,68 36,58 31,54 C 27,51 22,50 20,50 C 22,50 27,49 31,46 C 36,42 34,32 20,28 Z" fill="#007A3D" />
-            <path d="M 54,50 L 70,50 L 62,43 Z M 70,50 L 62,57 Z" fill="#007A3D" />
-          </svg>
+    <div class="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between gap-3">
+      <!-- Logo -->
+      <a href="#" onclick="navigateToList(); return false;" class="flex items-center gap-2 group">
+        <div class="w-10 h-10 rounded-2xl bg-brand-darkteal flex items-center justify-center text-white font-extrabold text-xl shadow-md group-hover:scale-105 transition-transform">
+          CD
         </div>
-
-        <!-- Название кофейни COFFEE DAY с орнаментной буквой D -->
-        <div class="flex flex-col">
-          <div class="flex items-center text-stone-900 leading-none">
-            <span class="font-[900] tracking-wider text-xl sm:text-2xl">COFFEE</span>
-            <!-- Фирменная буква D с орнаментом -->
-            <span class="inline-block relative w-[23px] sm:w-[27px] h-[21px] sm:h-[25px] ml-1 mr-0.5">
-              <svg viewBox="0 0 100 100" class="w-full h-full fill-current text-stone-900">
-                <path d="M 12,8 L 48,8 C 76,8 90,26 90,50 C 90,74 76,92 48,92 L 12,92 Z" />
-                <path d="M 10,20 C 38,25 43,42 30,48 C 45,45 50,40 52,35 C 53,42 44,47 34,50 C 44,53 53,58 52,65 C 50,60 45,55 30,52 C 43,58 38,75 10,80 C 28,75 30,62 24,56 C 18,52 12,50 10,50 C 12,50 18,48 24,44 C 30,38 28,25 10,20 Z" fill="#FAF7F2" />
-                <polygon points="52,50 72,50 63,42" fill="#FAF7F2" />
-                <polygon points="52,50 72,50 63,58" fill="#FAF7F2" />
-              </svg>
-            </span>
-            <span class="font-[900] tracking-wider text-xl sm:text-2xl">AY</span>
+        <div>
+          <div class="font-black text-lg tracking-wider text-stone-900 flex items-center gap-1">
+            COFFEE<span class="text-brand-teal">DAY</span>
           </div>
-          <span class="text-[9px] uppercase tracking-[0.22em] text-[#007A3D] font-extrabold mt-0.5">Pavlodar</span>
+          <p class="text-[10px] uppercase tracking-widest text-stone-500 font-semibold leading-none">Pavlodar</p>
         </div>
       </a>
 
       <!-- Action buttons -->
       <div class="flex items-center gap-2">
         <button id="qrOpenBtn" type="button" class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-stone-100 hover:bg-stone-200 text-stone-700 text-xs font-bold transition-colors">
-          <i data-lucide="qr-code" class="w-4 h-4 text-[#007A3D]"></i>
+          <i data-lucide="qr-code" class="w-4 h-4 text-brand-darkteal"></i>
           <span class="hidden sm:inline">QR-меню</span>
         </button>
 
@@ -109,7 +90,7 @@
             type="text" 
             id="searchInput" 
             placeholder="Поиск по первой букве (капучино, банан, чай, раф)..." 
-            class="w-full bg-white rounded-xl pl-10 pr-9 py-2 text-sm border border-stone-200 focus:outline-none focus:ring-2 focus:ring-[#007A3D]/40 transition-all shadow-xs"
+            class="w-full bg-white rounded-xl pl-10 pr-9 py-2 text-sm border border-stone-200 focus:outline-none focus:ring-2 focus:ring-brand-teal/40 transition-all shadow-xs"
           />
           <button id="clearSearchBtn" type="button" class="hidden absolute right-3 top-1/2 -translate-y-1/2 text-stone-400 hover:text-stone-600">
             <i data-lucide="x" class="w-4 h-4"></i>
@@ -125,14 +106,14 @@
   <!-- ================= VIEW 1: CATALOG VIEW ================= -->
   <div id="catalogView">
     <section class="max-w-4xl mx-auto px-4 pt-4 pb-2 w-full">
-      <div class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#0c4e2b] via-[#007A3D] to-[#083b20] text-white p-5 sm:p-6 shadow-xl">
+      <div class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-brand-darkteal via-[#136166] to-[#1a383a] text-white p-5 sm:p-6 shadow-xl">
         <div class="relative z-10">
-          <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/10 backdrop-blur-md text-emerald-200 text-xs font-semibold mb-2">
+          <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/10 backdrop-blur-md text-teal-200 text-xs font-semibold mb-2">
             <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
             <span>Every Day Good Mood</span>
           </div>
           <h1 class="text-2xl sm:text-3xl font-black tracking-tight mb-1">Меню Кофейни</h1>
-          <p class="text-xs sm:text-sm text-stone-200 max-w-md">Выберите любимый напиток, оформите заказ в WhatsApp и покажите чек баристе на кассе!</p>
+          <p class="text-xs sm:text-sm text-stone-200 max-w-md">Выберите напиток, оформите заказ в WhatsApp и покажите чек баристе на кассе!</p>
           
           <div class="mt-4 flex flex-wrap gap-2 text-[11px] text-stone-300">
             <div class="bg-black/20 backdrop-blur-md px-2.5 py-1 rounded-lg border border-white/10">
@@ -143,7 +124,7 @@
             </div>
           </div>
         </div>
-        <div class="absolute -right-6 -bottom-10 w-44 h-44 bg-emerald-400/15 rounded-full blur-2xl"></div>
+        <div class="absolute -right-6 -bottom-10 w-44 h-44 bg-teal-400/10 rounded-full blur-2xl"></div>
       </div>
     </section>
 
@@ -159,21 +140,9 @@
   <!-- FOOTER -->
   <footer class="bg-white border-t border-stone-200/80 mt-12 py-8">
     <div class="max-w-4xl mx-auto px-4 text-center">
-      
-      <!-- Footer Logo -->
-      <div class="flex items-center justify-center text-stone-900 leading-none mb-1">
-        <span class="font-[900] tracking-wider text-xl">COFFEE</span>
-        <span class="inline-block relative w-[22px] h-[20px] ml-1 mr-0.5">
-          <svg viewBox="0 0 100 100" class="w-full h-full fill-current text-stone-900">
-            <path d="M 12,8 L 48,8 C 76,8 90,26 90,50 C 90,74 76,92 48,92 L 12,92 Z" />
-            <path d="M 10,20 C 38,25 43,42 30,48 C 45,45 50,40 52,35 C 53,42 44,47 34,50 C 44,53 53,58 52,65 C 50,60 45,55 30,52 C 43,58 38,75 10,80 C 28,75 30,62 24,56 C 18,52 12,50 10,50 C 12,50 18,48 24,44 C 30,38 28,25 10,20 Z" fill="#ffffff" />
-            <polygon points="52,50 72,50 63,42" fill="#ffffff" />
-            <polygon points="52,50 72,50 63,58" fill="#ffffff" />
-          </svg>
-        </span>
-        <span class="font-[900] tracking-wider text-xl">AY</span>
+      <div class="font-black text-xl tracking-wider text-stone-900 mb-1">
+        COFFEE<span class="text-brand-teal">DAY</span>
       </div>
-
       <p class="text-xs text-stone-500 font-medium mb-4">г. Павлодар • Every Day Good Mood</p>
 
       <div class="flex justify-center items-center gap-3 sm:gap-4 mb-6 flex-wrap">
@@ -199,7 +168,7 @@
         <i data-lucide="x" class="w-5 h-5"></i>
       </button>
 
-      <div class="w-12 h-12 bg-brand-cream rounded-2xl flex items-center justify-center mx-auto mb-3 text-[#007A3D]">
+      <div class="w-12 h-12 bg-brand-cream rounded-2xl flex items-center justify-center mx-auto mb-3 text-brand-darkteal">
         <i data-lucide="qr-code" class="w-6 h-6"></i>
       </div>
       <h3 class="font-black text-lg text-stone-900">QR-код на меню</h3>
@@ -207,7 +176,7 @@
 
       <div class="p-4 bg-stone-50 rounded-2xl inline-block border border-stone-200 shadow-inner mb-4" id="qrcode"></div>
 
-      <button onclick="window.print()" class="w-full py-2.5 px-4 bg-[#007A3D] hover:bg-emerald-800 text-white rounded-xl text-xs font-bold transition-all shadow-md flex items-center justify-center gap-2">
+      <button onclick="window.print()" class="w-full py-2.5 px-4 bg-brand-darkteal hover:bg-brand-teal text-white rounded-xl text-xs font-bold transition-all shadow-md flex items-center justify-center gap-2">
         <i data-lucide="printer" class="w-4 h-4"></i> Распечатать / Сохранить
       </button>
     </div>
@@ -221,7 +190,7 @@
       </button>
 
       <div class="flex items-center gap-3 mb-4">
-        <div class="w-11 h-11 bg-emerald-50 text-[#007A3D] rounded-2xl flex items-center justify-center">
+        <div class="w-11 h-11 bg-teal-50 text-brand-darkteal rounded-2xl flex items-center justify-center">
           <i data-lucide="coffee" class="w-6 h-6"></i>
         </div>
         <div>
@@ -237,7 +206,7 @@
             type="text" 
             id="orderCustomerName" 
             placeholder="Введите ваше имя" 
-            class="w-full bg-stone-50 border border-stone-200 rounded-xl px-3 py-2 text-xs focus:ring-2 focus:ring-[#007A3D]/40 focus:outline-none"
+            class="w-full bg-stone-50 border border-stone-200 rounded-xl px-3 py-2 text-xs focus:ring-2 focus:ring-brand-teal/40 focus:outline-none"
             required
           />
         </div>
@@ -245,14 +214,14 @@
         <div>
           <label class="block text-xs font-bold text-stone-700 mb-1">Где вы находитесь? *</label>
           <div class="grid grid-cols-2 gap-2 mb-1.5">
-            <button type="button" id="btnPlaceHall" onclick="setPlaceType('hall')" class="py-1.5 text-xs font-bold rounded-xl border border-[#007A3D] bg-emerald-50 text-[#007A3D]">В зале</button>
+            <button type="button" id="btnPlaceHall" onclick="setPlaceType('hall')" class="py-1.5 text-xs font-bold rounded-xl border border-brand-teal bg-teal-50 text-brand-darkteal">В зале</button>
             <button type="button" id="btnPlaceTogo" onclick="setPlaceType('togo')" class="py-1.5 text-xs font-bold rounded-xl border border-stone-200 bg-white text-stone-600">С собой</button>
           </div>
           <input 
             type="text" 
             id="orderTableNumber" 
             placeholder="Номер столика (например: Столик 3)" 
-            class="w-full bg-stone-50 border border-stone-200 rounded-xl px-3 py-2 text-xs focus:ring-2 focus:ring-[#007A3D]/40 focus:outline-none"
+            class="w-full bg-stone-50 border border-stone-200 rounded-xl px-3 py-2 text-xs focus:ring-2 focus:ring-brand-teal/40 focus:outline-none"
             required
           />
         </div>
@@ -263,19 +232,19 @@
             type="text" 
             id="orderComment" 
             placeholder="Без сахара / сироп / потеплее" 
-            class="w-full bg-stone-50 border border-stone-200 rounded-xl px-3 py-2 text-xs focus:ring-2 focus:ring-[#007A3D]/40 focus:outline-none"
+            class="w-full bg-stone-50 border border-stone-200 rounded-xl px-3 py-2 text-xs focus:ring-2 focus:ring-brand-teal/40 focus:outline-none"
           />
         </div>
 
         <!-- Подсказка с контактом и суммой -->
         <div class="p-3 bg-stone-50 border border-stone-200/80 rounded-2xl space-y-1.5">
           <div class="flex items-center justify-between text-xs">
-            <span class="text-stone-600 font-bold">Номер кассы / WhatsApp:</span>
+            <span class="text-stone-600 font-bold">Номер заказа / кассы:</span>
             <span class="text-stone-900 font-extrabold">+7 777 251 20 65</span>
           </div>
           <div class="flex items-center justify-between text-xs pt-1 border-t border-stone-200">
             <span class="text-stone-600 font-bold">Сумма заказа:</span>
-            <span class="text-[#007A3D] font-black text-base" id="orderModalPrice">0 ₸</span>
+            <span class="text-brand-darkteal font-black text-base" id="orderModalPrice">0 ₸</span>
           </div>
         </div>
 
@@ -291,7 +260,7 @@
         <button 
           type="submit" 
           id="submitOrderBtn"
-          class="w-full py-3.5 px-4 bg-[#007A3D] hover:bg-emerald-800 text-white rounded-xl text-xs font-black transition-all shadow-md flex items-center justify-center gap-2"
+          class="w-full py-3.5 px-4 bg-brand-darkteal hover:bg-brand-teal text-white rounded-xl text-xs font-black transition-all shadow-md flex items-center justify-center gap-2"
         >
           <i data-lucide="send" class="w-4 h-4"></i>
           Сделать заказ
@@ -303,6 +272,7 @@
   </div>
 
   <script>
+    // ЕДИНЫЙ РАБОЧИЙ НОМЕР КОФЕЙНИ
     const COFFEE_WHATSAPP_PHONE = "77772512065";
 
     const menuData = [
@@ -313,7 +283,7 @@
           { 
             id: "c_esp", 
             name: "Эспрессо", 
-            desc: "Двойной шот насыщенного эспрессо[cite: 1]", 
+            desc: "Двойной шот насыщенного эспрессо", 
             vol: "40 мл", 
             prices: { "40 мл": 790 }, 
             badge: "Классика",
@@ -336,80 +306,80 @@
           { 
             id: "c_amr", 
             name: "Американо", 
-            desc: "Двойное эспрессо, горячая вода, молоко по выбору[cite: 1]", 
+            desc: "Двойное эспрессо, горячая вода, молоко по выбору", 
             vol: ["350 мл", "450 мл"], 
             prices: { "350 мл": 990, "450 мл": 1290 }, 
             image: "https://images.unsplash.com/photo-1551030173-122aabc4489c?w=900&auto=format&fit=crop&q=80",
             composition: ["Двойной шот эспрессо (Doppio)", "Горячая фильтрованная вода оптимальной минерализации", "Опционально: теплое или холодное молоко"],
-            grams: "Объем: 350 мл / 450 мл[cite: 1]",
+            grams: "Объем: 350 мл / 450 мл",
             fact: "Напиток родился во время Второй мировой войны в Италии: американским солдатам местный эспрессо казался слишком крепким, и бариста разбавляли его кипятком."
           },
           { 
             id: "c_flat", 
             name: "Флэт Уайт", 
-            desc: "Двойной эспрессо с шелковистым молоком[cite: 1]", 
+            desc: "Двойной эспрессо с шелковистым молоком", 
             vol: "250 мл", 
             prices: { "250 мл": 1190 }, 
             image: "https://images.unsplash.com/photo-1577968897966-3d4325b36b61?w=900&auto=format&fit=crop&q=80",
-            composition: ["Двойной шот эспрессо[cite: 1]", "Взбитое микроструктурированное молоко без толстой пены[cite: 1]"],
-            grams: "Объем: 250 мл (баланс в пользу насыщенного кофейного вкуса)[cite: 1]",
+            composition: ["Двойной шот эспрессо", "Взбитое микроструктурированное молоко без толстой пены"],
+            grams: "Объем: 250 мл (баланс в пользу насыщенного кофейного вкуса)",
             fact: "Флэт Уайт был изобретен в 1980-х годах в Новой Зеландии и Австралии как альтернатива слишком пышной пене классического капучино."
           },
           { 
             id: "c_cap", 
             name: "Капучино", 
-            desc: "Двойное эспрессо, молоко, густая пена 30%[cite: 1]", 
+            desc: "Двойное эспрессо, молоко, густая пена 30%", 
             vol: ["350 мл", "450 мл"], 
             prices: { "350 мл": 1190, "450 мл": 1390 }, 
             badge: "Хит",
             image: "https://images.unsplash.com/photo-1534778101976-62847782c213?w=900&auto=format&fit=crop&q=80",
-            composition: ["Двойное эспрессо[cite: 1]", "Свежее цельное молоко 3.2%[cite: 1]", "Плотная бархатная молочная пена 30%[cite: 1]"],
-            grams: "Объем: 350 мл / 450 мл[cite: 1]",
+            composition: ["Двойное эспрессо", "Свежее цельное молоко 3.2%", "Плотная бархатная молочная пена 30%"],
+            grams: "Объем: 350 мл / 450 мл",
             fact: "Название напитка восходит к ордену монахов-капуцинов: цвет кофе с молочной пенкой в точности повторял оттенок их традиционных коричневых ряс."
           },
           { 
             id: "c_lat", 
             name: "Латте", 
-            desc: "Одинарный эспрессо, большое количество взбитого молока[cite: 1]", 
+            desc: "Одинарный эспрессо, большое количество взбитого молока", 
             vol: ["350 мл", "450 мл"], 
             prices: { "350 мл": 1190, "450 мл": 1290 }, 
             image: "https://images.unsplash.com/photo-1570968915860-54d5c301fa9f?w=900&auto=format&fit=crop&q=80",
-            composition: ["Шот ароматного одинарного эспрессо[cite: 1]", "Большая порция деликатно прогретого взбитого молока[cite: 1]"],
-            grams: "Объем: 350 мл / 450 мл[cite: 1]",
+            composition: ["Шот ароматного одинарного эспрессо", "Большая порция деликатно прогретого взбитого молока"],
+            grams: "Объем: 350 мл / 450 мл",
             fact: "В Италии, если вы закажете просто «latte», вам принесут обычный стакан холодного молока. Правильное название для заказа в Риме — «caffè latte»."
           },
           { 
             id: "c_date_lat", 
             name: "Финиковый Латте", 
-            desc: "Эспрессо, молоко и натуральная сладость фиников[cite: 1]", 
+            desc: "Эспрессо, молоко и натуральная сладость фиников", 
             vol: ["350 мл", "450 мл"], 
             prices: { "350 мл": 1290, "450 мл": 1490 }, 
             badge: "Спешелти",
             image: "https://images.unsplash.com/photo-1541167760496-1628856ab772?w=900&auto=format&fit=crop&q=80",
-            composition: ["Свежесваренный эспрессо[cite: 1]", "Натуральная основа из отборных фиников[cite: 1]", "Взбитое теплое молоко[cite: 1]"],
-            grams: "Объем: 350 мл / 450 мл[cite: 1]",
+            composition: ["Свежесваренный эспрессо", "Натуральная основа из отборных фиников", "Взбитое теплое молоко"],
+            grams: "Объем: 350 мл / 450 мл",
             fact: "Финики служат идеальным природным подсластителем без рафинированного сахара, придавая кофе карамельно-медовый бархатный шлейф."
           },
           { 
             id: "c_mocc", 
             name: "Мокко / Моккочино", 
-            desc: "Двойное эспрессо, молоко, шоколад[cite: 1]", 
+            desc: "Двойное эспрессо, молоко, шоколад", 
             vol: ["350 мл", "450 мл"], 
             prices: { "350 мл": 1390, "450 мл": 1490 }, 
             image: "https://images.unsplash.com/photo-1578314675249-a6910f80cc4e?w=900&auto=format&fit=crop&q=80",
-            composition: ["Двойное эспрессо[cite: 1]", "Бельгийский шоколад[cite: 1]", "Взбитое цельное молоко[cite: 1]"],
-            grams: "Объем: 350 мл / 450 мл[cite: 1]",
+            composition: ["Двойное эспрессо", "Бельгийский шоколад", "Взбитое цельное молоко"],
+            grams: "Объем: 350 мл / 450 мл",
             fact: "Свое имя напиток получил в честь древнего портового города Моха в Йемене, откуда в Европу впервые начали поставлять кофейные зерна с шоколадным профилем."
           },
           { 
             id: "c_viet", 
             name: "Кофе по-вьетнамски", 
-            desc: "Эспрессо, сладкое сгущенное молоко, взбитое молоко[cite: 1]", 
+            desc: "Эспрессо, сладкое сгущенное молоко, взбитое молоко", 
             vol: ["350 мл", "450 мл"], 
             prices: { "350 мл": 1390, "450 мл": 1490 }, 
             image: "https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?w=900&auto=format&fit=crop&q=80",
-            composition: ["Крепкий насыщенный эспрессо[cite: 1]", "Сгущенное цельное молоко[cite: 1]", "Взбитое молоко[cite: 1]"],
-            grams: "Объем: 350 мл / 450 мл[cite: 1]",
+            composition: ["Крепкий насыщенный эспрессо", "Сгущенное цельное молоко", "Взбитое молоко"],
+            grams: "Объем: 350 мл / 450 мл",
             fact: "Во Вьетнаме сгущенка стала национальным стандартом еще в XIX веке из-за тропической жары и дефицита свежего молока."
           }
         ]
@@ -421,36 +391,36 @@
           { 
             id: "r_classic", 
             name: "Раф Ванильный / Классический", 
-            desc: "Двойное эспрессо, ванильный сахар/сироп, сливки 10%[cite: 1, 2]", 
+            desc: "Двойное эспрессо, ванильный сахар/сироп, сливки 10%", 
             vol: ["350 мл", "450 мл"], 
             prices: { "350 мл": 1490, "450 мл": 1590 }, 
             badge: "Любимое",
             image: "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=900&auto=format&fit=crop&q=80",
-            composition: ["Двойной шот эспрессо[cite: 1, 2]", "Питьевые сливки 10%[cite: 1]", "Натуральный ванильный сахар или сироп[cite: 1, 2]", "Взбивается всё вместе в питчере до кремовой пены"],
-            grams: "Объем: 350 мл / 450 мл[cite: 1, 2]",
+            composition: ["Двойной шот эспрессо", "Питьевые сливки 10%", "Натуральный ванильный сахар или сироп", "Взбивается всё вместе в питчере до кремовой пены"],
+            grams: "Объем: 350 мл / 450 мл",
             fact: "Раф-кофе был изобретен в Москве в конце 90-х для постоянного гостя по имени Рафаэль, просившего сделать что-то особенно мягкое."
           },
           { 
             id: "r_caramel_cheese", 
             name: "Карамельный Раф Чиз", 
-            desc: "Эспрессо, сливки, сливочный сыр и тягучая карамель[cite: 2]", 
+            desc: "Эспрессо, сливки, сливочный сыр и тягучая карамель", 
             vol: ["350 мл", "450 мл"], 
             prices: { "350 мл": 1590, "450 мл": 1690 }, 
             badge: "Топ",
             image: "https://images.unsplash.com/photo-1517256064527-09c73fc73e38?w=900&auto=format&fit=crop&q=80",
-            composition: ["Эспрессо[cite: 2]", "Сливки 10%[cite: 2]", "Сливочный сыр Cremette[cite: 2]", "Тягучая сливочная карамель[cite: 2]"],
-            grams: "Объем: 350 мл / 450 мл[cite: 2]",
+            composition: ["Эспрессо", "Сливки 10%", "Сливочный сыр Cremette", "Тягучая сливочная карамель"],
+            grams: "Объем: 350 мл / 450 мл",
             fact: "Сливочный сыр при взбивании паром дает текстуру растаявшего чизкейка, превращая кофе в полноценный десерт."
           },
           { 
             id: "r_halva", 
             name: "Раф с халвой", 
-            desc: "Эспрессо, нежные сливки, натуральная халва[cite: 2]", 
+            desc: "Эспрессо, нежные сливки, натуральная халва", 
             vol: ["350 мл", "450 мл"], 
             prices: { "350 мл": 1590, "450 мл": 1690 }, 
             image: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=900&auto=format&fit=crop&q=80",
-            composition: ["Эспрессо[cite: 2]", "Сливки 10%[cite: 2]", "Натуральная халва тонкого помола[cite: 2]"],
-            grams: "Объем: 350 мл / 450 мл[cite: 2]",
+            composition: ["Эспрессо", "Сливки 10%", "Натуральная халва тонкого помола"],
+            grams: "Объем: 350 мл / 450 мл",
             fact: "Халва полностью растворяется вместе со сливками под горячим паром, раскрывая глубокий орехово-карамельный вкус."
           }
         ]
@@ -462,23 +432,23 @@
           { 
             id: "ic_amr", 
             name: "Айс Американо", 
-            desc: "Эспрессо, лед, фильтрованная вода[cite: 3]", 
+            desc: "Эспрессо, лед, фильтрованная вода", 
             vol: "400 мл", 
             prices: { "400 мл": 1290 }, 
             image: "https://images.unsplash.com/photo-1517701604599-bb29b565090c?w=900&auto=format&fit=crop&q=80",
-            composition: ["Двойной эспрессо[cite: 3]", "Кубиковый чистый лед[cite: 3]", "Холодная артезианская вода[cite: 3]"],
-            grams: "Объем: 400 мл[cite: 4]",
+            composition: ["Двойной эспрессо", "Кубиковый чистый лед", "Холодная артезианская вода"],
+            grams: "Объем: 400 мл",
             fact: "Айс американо — самый популярный напиток в Южной Корее круглый год."
           },
           { 
             id: "ic_lat", 
             name: "Айс Латте", 
-            desc: "Эспрессо, кубики льда, охлажденное молоко[cite: 3]", 
+            desc: "Эспрессо, кубики льда, охлажденное молоко", 
             vol: ["400 мл", "500 мл"], 
             prices: { "400 мл": 1290, "500 мл": 1390 }, 
             image: "https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?w=900&auto=format&fit=crop&q=80",
-            composition: ["Эспрессо[cite: 3]", "Охлажденное цельное молоко[cite: 3]", "Пищевой лед[cite: 3]"],
-            grams: "Объем: 400 мл / 500 мл[cite: 4]",
+            composition: ["Эспрессо", "Охлажденное цельное молоко", "Пищевой лед"],
+            grams: "Объем: 400 мл / 500 мл",
             fact: "При правильной подаче айс латте ложится красивыми контрастными слоями с эффектом омбре."
           },
           { 
@@ -489,7 +459,7 @@
             prices: { "400 мл": 1690 }, 
             image: "https://images.unsplash.com/photo-1551024709-8f23befc6f87?w=900&auto=format&fit=crop&q=80",
             composition: ["Шот эспрессо", "Натуральный апельсиновый сок", "Карамельный сироп", "Лед"],
-            grams: "Объем: 400 мл[cite: 4]",
+            grams: "Объем: 400 мл",
             fact: "Напиток назван в честь шмеля ('bumblebee') за счет ярких желто-черных полосок сока и кофе."
           },
           { 
@@ -501,7 +471,7 @@
             badge: "Премиум",
             image: "https://images.unsplash.com/photo-1621263764928-df1444c5e859?w=900&auto=format&fit=crop&q=80",
             composition: ["Эспрессо", "Свежевыжатый фреш из сочных апельсинов", "Кубиковый лед"],
-            grams: "Объем: 400 мл[cite: 4]",
+            grams: "Объем: 400 мл",
             fact: "Цитрусовая кислота свежего фреша раскрывает тонкие фруктовые нотки спешелти-арабики."
           },
           { 
@@ -512,7 +482,7 @@
             prices: { "400 мл": 1790 }, 
             image: "https://images.unsplash.com/photo-1556881286-fc6915169721?w=900&auto=format&fit=crop&q=80",
             composition: ["Двойной эспрессо", "Игристый тоник с хинином", "Долька лайма или апельсина", "Лед"],
-            grams: "Объем: 400 мл[cite: 4]",
+            grams: "Объем: 400 мл",
             fact: "Рецепт эспрессо-тоника случайно открыли в Швеции в 2007 году после закрытия кофейни."
           }
         ]
@@ -524,46 +494,46 @@
           { 
             id: "t_tashkent", 
             name: "Ташкентский чай", 
-            desc: "Лимон, сочный апельсин, свежая мята, сироп, чай[cite: 2]", 
+            desc: "Лимон, сочный апельсин, свежая мята, сироп, чай", 
             vol: ["350 мл", "450 мл"], 
             prices: { "350 мл": 1090, "450 мл": 1290 }, 
             badge: "Хит",
             image: "https://images.unsplash.com/photo-1576092768241-dec231879fc3?w=900&auto=format&fit=crop&q=80",
-            composition: ["Купаж отборного черного и зеленого чая[cite: 2]", "Свежие кружочки лимона и апельсина[cite: 2]", "Веточки горной мяты[cite: 2]", "Натуральный сироп[cite: 2]"],
-            grams: "Объем: 350 мл / 450 мл[cite: 2]",
+            composition: ["Купаж отборного черного и зеленого чая", "Свежие кружочки лимона и апельсина", "Веточки горной мяты", "Натуральный сироп"],
+            grams: "Объем: 350 мл / 450 мл",
             fact: "Ташкентский чай — главный символ восточного гостеприимства и согревающего уюта."
           },
           { 
             id: "t_morocco", 
             name: "Марокканский чай", 
-            desc: "Чай, мята, гвоздика, корица, бадьян, лимон, апельсин[cite: 2]", 
+            desc: "Чай, мята, гвоздика, корица, бадьян, лимон, апельсин", 
             vol: ["350 мл", "450 мл"], 
             prices: { "350 мл": 1090, "450 мл": 1290 }, 
             image: "https://images.unsplash.com/photo-1597481499750-3e6b22637e12?w=900&auto=format&fit=crop&q=80",
-            composition: ["Зеленый чай[cite: 2]", "Мята[cite: 2]", "Пряности: палочка корицы, звездочка бадьяна, гвоздика[cite: 2]", "Цитрусы[cite: 2]"],
-            grams: "Объем: 350 мл / 450 мл[cite: 2]",
+            composition: ["Зеленый чай", "Мята", "Пряности: палочка корицы, звездочка бадьяна, гвоздика", "Цитрусы"],
+            grams: "Объем: 350 мл / 450 мл",
             fact: "В Марокко чай наливают с большой высоты, насыщая кислородом и создавая пенную шапочку."
           },
           { 
             id: "t_seabuck", 
             name: "Облепиховый чай", 
-            desc: "Облепиховый соус, апельсиновый сок, апельсин, облепиха[cite: 2]", 
+            desc: "Облепиховый соус, апельсиновый сок, апельсин, облепиха", 
             vol: ["350 мл", "450 мл"], 
             prices: { "350 мл": 1090, "450 мл": 1290 }, 
             image: "https://images.unsplash.com/photo-1544787219-7f47ccb76574?w=900&auto=format&fit=crop&q=80",
-            composition: ["Натуральный облепиховый соус[cite: 2]", "Цельные ягоды алтайской облепихи[cite: 2]", "Апельсиновый сок[cite: 2]", "Апельсин[cite: 2]"],
-            grams: "Объем: 350 мл / 450 мл[cite: 2]",
+            composition: ["Натуральный облепиховый соус", "Цельные ягоды алтайской облепихи", "Апельсиновый сок", "Апельсин"],
+            grams: "Объем: 350 мл / 450 мл",
             fact: "Облепиха содержит в 10 раз больше витамина C, чем цитрусовые, сохраняя свойства при заваривании."
           },
           { 
             id: "t_cacao", 
             name: "Какао", 
-            desc: "Натуральное какао и теплое взбитое молоко[cite: 2]", 
+            desc: "Натуральное какао и теплое взбитое молоко", 
             vol: ["350 мл", "450 мл"], 
             prices: { "350 мл": 1190, "450 мл": 1390 }, 
             image: "https://images.unsplash.com/photo-1542990253-0d0f5be5f0ed?w=900&auto=format&fit=crop&q=80",
-            composition: ["Натуральный порошок какао-бобов[cite: 2]", "Цельное взбитое молоко[cite: 2]", "Тростниковый сахар"],
-            grams: "Объем: 350 мл / 450 мл[cite: 2]",
+            composition: ["Натуральный порошок какао-бобов", "Цельное взбитое молоко", "Тростниковый сахар"],
+            grams: "Объем: 350 мл / 450 мл",
             fact: "Древние племена майя считали горячий напиток из какао-бобов священным эликсиром сил."
           }
         ]
@@ -575,24 +545,24 @@
           { 
             id: "sh_oreo", 
             name: "Шейк Oreo", 
-            desc: "Хрустящее печенье Oreo, мороженое, молоко[cite: 3]", 
+            desc: "Хрустящее печенье Oreo, мороженое, молоко", 
             vol: ["400 мл", "500 мл"], 
             prices: { "400 мл": 1590, "500 мл": 1690 }, 
             badge: "Хит",
             image: "https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=900&auto=format&fit=crop&q=80",
-            composition: ["Печенье Oreo в крошке[cite: 3]", "Натуральный сливочный пломбир[cite: 3]", "Цельное охлажденное молоко[cite: 3]"],
-            grams: "Объем: 400 мл / 500 мл[cite: 3]",
+            composition: ["Печенье Oreo в крошке", "Натуральный сливочный пломбир", "Цельное охлажденное молоко"],
+            grams: "Объем: 400 мл / 500 мл",
             fact: "Печенье Oreo производится уже более 110 лет и является самым продаваемым в мире."
           },
           { 
             id: "sh_berry_smoothie", 
             name: "Смузи Ягодно-Банановый", 
-            desc: "Банан, черная смородина, мороженое, нат. сок[cite: 3]", 
+            desc: "Банан, черная смородина, мороженое, нат. сок", 
             vol: ["400 мл", "500 мл"], 
             prices: { "400 мл": 1690, "500 мл": 1790 }, 
             image: "https://images.unsplash.com/photo-1553530666-ba11a7da3888?w=900&auto=format&fit=crop&q=80",
-            composition: ["Спелый банан[cite: 3]", "Ягоды черной смородины[cite: 3]", "Пломбирная основа[cite: 3]", "Натуральный сок[cite: 3]"],
-            grams: "Объем: 400 мл / 500 мл[cite: 3]",
+            composition: ["Спелый банан", "Ягоды черной смородины", "Пломбирная основа", "Натуральный сок"],
+            grams: "Объем: 400 мл / 500 мл",
             fact: "Слово 'smoothie' происходит от английского 'smooth', что означает гладкую шелковистую текстуру."
           }
         ]
@@ -762,7 +732,7 @@
             <div class="flex flex-wrap items-center justify-between gap-4 p-4 rounded-2xl bg-brand-cream border border-stone-200/60">
               <div>
                 <p class="text-[11px] uppercase tracking-wider text-stone-500 font-bold">Стоимость</p>
-                <div class="text-2xl sm:text-3xl font-black text-[#007A3D]" id="detailPrice">
+                <div class="text-2xl sm:text-3xl font-black text-brand-darkteal" id="detailPrice">
                   ${currentPrice.toLocaleString()} ₸
                 </div>
               </div>
@@ -773,7 +743,7 @@
                     <button 
                       type="button" 
                       onclick="changeDetailVolume('${item.id}', '${v}', ${item.prices[v]})"
-                      class="detail-vol-btn px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${v === currentVol ? 'bg-[#007A3D] text-white shadow-xs' : 'text-stone-600 hover:text-stone-900'}"
+                      class="detail-vol-btn px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${v === currentVol ? 'bg-brand-darkteal text-white shadow-xs' : 'text-stone-600 hover:text-stone-900'}"
                       data-vol="${v}"
                     >
                       ${v}
@@ -791,26 +761,26 @@
             <button 
               type="button"
               onclick="openOrderModal('${item.id}')"
-              class="w-full py-4 px-6 rounded-2xl bg-[#007A3D] hover:bg-emerald-800 text-white font-black text-sm transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2"
+              class="w-full py-4 px-6 rounded-2xl bg-brand-darkteal hover:bg-brand-teal text-white font-black text-sm transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2"
             >
               <i data-lucide="shopping-bag" class="w-5 h-5"></i>
               <span>Сделать заказ (${currentPrice.toLocaleString()} ₸)</span>
             </button>
 
             <div class="flex items-center gap-3 text-xs text-stone-600 bg-stone-50 p-3 rounded-xl border border-stone-200/60">
-              <i data-lucide="scale" class="w-4 h-4 text-[#007A3D] shrink-0"></i>
+              <i data-lucide="scale" class="w-4 h-4 text-brand-teal shrink-0"></i>
               <span><b>Параметры порции:</b> ${item.grams || 'Стандартная подача кофейни COFFEEDAY'}</span>
             </div>
 
             <div>
               <h3 class="font-extrabold text-stone-900 text-base mb-2.5 flex items-center gap-2">
-                <i data-lucide="layers" class="w-4 h-4 text-[#007A3D]"></i>
+                <i data-lucide="layers" class="w-4 h-4 text-brand-darkteal"></i>
                 Состав и ингредиенты
               </h3>
               <ul class="space-y-2">
                 ${(item.composition || [item.desc]).map(ing => `
                   <li class="flex items-start gap-2.5 text-xs sm:text-sm text-stone-600">
-                    <span class="w-1.5 h-1.5 rounded-full bg-[#007A3D] mt-1.5 shrink-0"></span>
+                    <span class="w-1.5 h-1.5 rounded-full bg-brand-teal mt-1.5 shrink-0"></span>
                     <span>${ing}</span>
                   </li>
                 `).join('')}
@@ -850,7 +820,7 @@
       
       document.querySelectorAll('.detail-vol-btn').forEach(b => {
         if (b.getAttribute('data-vol') === vol) {
-          b.className = 'detail-vol-btn px-3 py-1.5 rounded-lg text-xs font-bold transition-all bg-[#007A3D] text-white shadow-xs';
+          b.className = 'detail-vol-btn px-3 py-1.5 rounded-lg text-xs font-bold transition-all bg-brand-darkteal text-white shadow-xs';
         } else {
           b.className = 'detail-vol-btn px-3 py-1.5 rounded-lg text-xs font-bold transition-all text-stone-600 hover:text-stone-900';
         }
@@ -869,13 +839,13 @@
       const tableInput = document.getElementById('orderTableNumber');
 
       if (type === 'hall') {
-        btnHall.className = 'py-1.5 text-xs font-bold rounded-xl border border-[#007A3D] bg-emerald-50 text-[#007A3D]';
+        btnHall.className = 'py-1.5 text-xs font-bold rounded-xl border border-brand-teal bg-teal-50 text-brand-darkteal';
         btnTogo.className = 'py-1.5 text-xs font-bold rounded-xl border border-stone-200 bg-white text-stone-600';
         tableInput.placeholder = 'Номер столика (например: Столик 3)';
         tableInput.value = '';
         tableInput.required = true;
       } else {
-        btnTogo.className = 'py-1.5 text-xs font-bold rounded-xl border border-[#007A3D] bg-emerald-50 text-[#007A3D]';
+        btnTogo.className = 'py-1.5 text-xs font-bold rounded-xl border border-brand-teal bg-teal-50 text-brand-darkteal';
         btnHall.className = 'py-1.5 text-xs font-bold rounded-xl border border-stone-200 bg-white text-stone-600';
         tableInput.placeholder = 'Имя для выдачи с собой';
         tableInput.value = 'С собой';
@@ -941,7 +911,7 @@
         <button 
           type="button"
           data-category="all"
-          class="category-tab-btn whitespace-nowrap px-4 py-1.5 rounded-full text-xs font-bold transition-all ${currentCategory === 'all' ? 'bg-[#007A3D] text-white shadow-md' : 'bg-white text-stone-600 hover:bg-stone-100 border border-stone-200'}"
+          class="category-tab-btn whitespace-nowrap px-4 py-1.5 rounded-full text-xs font-bold transition-all ${currentCategory === 'all' ? 'bg-brand-darkteal text-white shadow-md' : 'bg-white text-stone-600 hover:bg-stone-100 border border-stone-200'}"
         >
           Все позиции
         </button>
@@ -953,7 +923,7 @@
           <button 
             type="button"
             data-category="${cat.id}"
-            class="category-tab-btn whitespace-nowrap px-4 py-1.5 rounded-full text-xs font-bold transition-all ${isActive ? 'bg-[#007A3D] text-white shadow-md' : 'bg-white text-stone-600 hover:bg-stone-100 border border-stone-200'}"
+            class="category-tab-btn whitespace-nowrap px-4 py-1.5 rounded-full text-xs font-bold transition-all ${isActive ? 'bg-brand-darkteal text-white shadow-md' : 'bg-white text-stone-600 hover:bg-stone-100 border border-stone-200'}"
           >
             ${cat.name}
           </button>
@@ -1016,22 +986,22 @@
           let displayName = item.name;
           if (searchQuery.length > 0) {
             const regex = new RegExp(`(${searchQuery})`, 'gi');
-            displayName = item.name.replace(regex, '<span class="text-[#007A3D] font-extrabold underline decoration-[#007A3D]/40">$1</span>');
+            displayName = item.name.replace(regex, '<span class="text-brand-teal font-extrabold underline decoration-brand-teal/40">$1</span>');
           }
 
           html += `
             <div 
               onclick="navigateToItem('${item.id}')"
-              class="cursor-pointer bg-white rounded-2xl p-4 border border-stone-200/80 hover:border-[#007A3D] transition-all shadow-xs hover:shadow-md flex flex-col justify-between group"
+              class="cursor-pointer bg-white rounded-2xl p-4 border border-stone-200/80 hover:border-brand-teal transition-all shadow-xs hover:shadow-md flex flex-col justify-between group"
             >
               <div>
                 <div class="flex items-start justify-between gap-2 mb-1">
-                  <h3 class="font-bold text-stone-900 text-sm leading-snug group-hover:text-[#007A3D] transition-colors flex items-center gap-1.5">
+                  <h3 class="font-bold text-stone-900 text-sm leading-snug group-hover:text-brand-darkteal transition-colors flex items-center gap-1.5">
                     ${displayName}
-                    <i data-lucide="chevron-right" class="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 transition-opacity text-[#007A3D]"></i>
+                    <i data-lucide="chevron-right" class="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 transition-opacity text-brand-teal"></i>
                   </h3>
                   ${item.badge ? `
-                    <span class="shrink-0 text-[10px] font-bold px-2 py-0.5 rounded-full ${item.badge === 'Хит' ? 'bg-amber-100 text-amber-700' : 'bg-emerald-50 text-[#007A3D] border border-emerald-200'}">
+                    <span class="shrink-0 text-[10px] font-bold px-2 py-0.5 rounded-full ${item.badge === 'Хит' ? 'bg-amber-100 text-amber-700' : 'bg-teal-50 text-brand-darkteal border border-teal-200'}">
                       ${item.badge}
                     </span>
                   ` : ''}
@@ -1058,7 +1028,7 @@
                 `}
 
                 <div class="text-right">
-                  <span class="font-black text-[#007A3D] text-base">${currentPrice.toLocaleString()} ₸</span>
+                  <span class="font-black text-brand-darkteal text-base">${currentPrice.toLocaleString()} ₸</span>
                 </div>
               </div>
             </div>
@@ -1106,7 +1076,7 @@
         text: "https://coffeday-omega.vercel.app/",
         width: 170,
         height: 170,
-        colorDark: "#007A3D",
+        colorDark: "#0e4e52",
         colorLight: "#FAF7F2",
         correctLevel: QRCode.CorrectLevel.H
       });
